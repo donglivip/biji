@@ -1,0 +1,20 @@
+1.
+	在js中,创建对象的方法有两种
+		第一就是对象字面量
+			var o1 = {
+			    p:”I’m in Object literal”,
+			    alertP:function(){
+			        alert(this.p);
+			    }
+			}
+		第二就是使用构造函数
+			function CO(){
+			    this.p = “I’m in constructed object”;
+			    this.alertP = function(){
+			        alert(this.p);
+			    }
+			}
+			var o2 = newCO();
+		
+
+		直接使用对象字面量,当需要创建多个对象时,会有大量重复性工作

@@ -1,0 +1,649 @@
+1.Vue对象
+	el：
+		选择器
+	props:
+		获取父级元素的数据
+		Vue.component('props-demo-simple', {
+		  props: ['size', 'myMessage']
+		})
+		// 对象语法，提供校验
+		Vue.component('props-demo-advanced', {
+		  props: {
+		    // 检测类型
+		    height: Number,
+		    // 检测类型 + 其他验证
+		    age: {
+		      type: Number,
+		      default: 0,
+		      required: true,
+		      validator: function (value) {
+		        return value >= 0
+		      }
+		    }
+		  }
+		})
+	propsData:
+		只用于 new 创建的实例中。创建实例时传递 props。主要作用是方便测试。
+		var Comp = Vue.extend({
+		  props: ['msg'],
+		  template: '<div>{{ msg }}</div>'
+		})
+		var vm = new Comp({
+		  propsData: {
+		    msg: 'hello'
+		  }
+		})
+	computed:
+		{ [key: string]: Function | { get: Function, set: Function } }
+		计算属性计算属性将被混入到 Vue 实例中。所有 getter 和 setter 的 this 上下文自动地绑定为 Vue 实例。
+		var vm = new Vue({
+		  data: { a: 1 },
+		  computed: {
+		    // 仅读取
+		    aDouble: function () {
+		      return this.a * 2
+		    },
+		    // 读取和设置
+		    aPlus: {
+		      get: function () {
+		        return this.a + 1
+		      },
+		      set: function (v) {
+		        this.a = v - 1
+		      }
+		    }
+		  }
+		})
+		vm.aPlus   // => 2
+		vm.aPlus = 3
+		vm.a       // => 2
+		vm.aDouble // => 4
+	watch:
+		{ [key: string]: string | Function | Object }
+		一个对象，键是需要观察的表达式，值是对应回调函数。值也可以是方法名，或者包含选项的对象。Vue 实例将会在实例化时调用 $watch()，遍历 watch 对象的每一个属性。
+		var vm = new Vue({
+		  data: {
+		    a: 1,
+		    b: 2,
+		    c: 3,
+		    d: 4
+		  },
+		  watch: {
+		    a: function (val, oldVal) {
+		      console.log('new: %s, old: %s', val, oldVal)
+		    },
+		    // 方法名
+		    b: 'someMethod',
+		    // 深度 watcher
+		    c: {
+		      handler: function (val, oldVal) { /* ... */ },
+		      deep: true
+		    },
+		    // 该回调将会在侦听开始之后被立即调用
+		    d: {
+		      handler: function (val, oldVal) { /* ... */ },
+		      immediate: true
+		    }
+		  }
+		})
+		vm.a = 2 // => new: 2, old: 1
+	data：
+		所有的数据
+	methods：
+		所有的函数
+	filters：
+		过滤器
+	router：
+		路由实例
+	components：
+		组件	
+	directives:
+		指令
+	render:
+		(createElement: () => VNode) => VNode
+		字符串模板的代替方案，允许你发挥 JavaScript 最大的编程能力。该渲染函数接收一个 createElement 方法作为第一个参数用来创建 VNode。
+
+		如果组件是一个函数组件，渲染函数还会接收一个额外的 context 参数，为没有实例的函数组件提供上下文信息。
+2.事件
+	v-on缩写：
+		@
+		@click
+	事件对象的传递
+		@click=animate（$event）
+		$event当前事件对象
+	修饰符
+		<!-- 阻止单击事件冒泡 -->
+		<a v-on:click.stop="doThis"></a>
+		<!-- 提交事件不再重载页面 -->
+		<form v-on:submit.prevent="onSubmit"></form>
+		<!-- 修饰符可以串联  -->
+		<a v-on:click.stop.prevent="doThat"></a>
+		<!-- 只有修饰符 -->
+		<form v-on:submit.prevent></form>
+		<!-- 添加事件侦听器时使用事件捕获模式 -->
+		<div v-on:click.capture="doThis">...</div>
+		<!-- 只当事件在该元素本身（而不是子元素）触发时触发回调 -->
+		<div v-on:click.self="doThat">...</div>
+		
+		<!-- click 事件至少触发一次，2.1.4版本新增 -->
+		<a v-on:click.once="doThis"></a>
+	键盘事件
+		keyup
+		keydown
+	键盘修饰符
+		<input @keyup.enter="submit">
+		vue提供的修饰符
+			.enter
+			.tab
+			.delete (捕获 "删除" 和 "退格" 键)
+			吧
+			.esc
+			.space
+			.up
+			.down
+			.left
+			.right
+			.ctrl
+			.alt
+			.shift
+			.meta
+		自定义修饰符
+			<input v-on:keyup.13="submit">
+		获取键码
+			<input type="button" @click="show($event)"/>
+			methods:{
+				show:function(ev){
+					ev.keyCode
+				}
+			}
+3.属性绑定v-bind
+	缩写：
+		：
+	用法：
+		data:{
+			url:"src/images/a.png"
+		}
+		<img v-bind:src="url"/>
+	特殊（class属性绑定）
+		:class="{red:true,blue:true}"
+4.过滤器
+	用法：
+		{{msg | toDou('12','5')}}
+	全局过滤器
+		Vue.filter('name',function(){
+		
+		})
+	局部过滤器
+		new vue({
+			el:'#app',
+			data:{
+			
+			},
+			filters：{
+				name：function（）{
+					。。。
+				}
+			}
+		})
+4.指令
+	自带指令
+		v-text：
+			更新文本内容
+			<span v-text="msg"></span>
+			<!-- 和下面的一样 -->
+			<span>{{msg}}</span>
+		v-html
+			更新html代码
+		v-show
+			元素的现显示与隐藏
+		v-if，v-else-if，v-else
+			判断
+			<div v-if="type === 'A'">
+			  A
+			</div>
+			<div v-else-if="type === 'B'">
+			  B
+			</div>
+			<div v-else-if="type === 'C'">
+			  C
+			</div>
+			<div v-else>
+			  Not A/B/C
+			</div>
+		v-for
+			循环
+			<div v-for="item in items">
+			  {{ item.text }}
+			</div>
+			<div v-for="(item, index) in items"></div>
+			<div v-for="(val, key) in object"></div>
+			<div v-for="(val, key, index) in object"></div>
+			v-for 默认行为试着不改变整体，而是替换元素。迫使其重新排序的元素，您需要提供一个 key 的特殊属性：
+			<div v-for="item in items" :key="item.id">
+			  {{ item.text }}
+			</div>
+		v-on
+			事件绑定
+		v-bind
+			属性绑定
+		v-model 
+			        ：限制<input> <select> components ;
+		   	        修饰符：.lazy---取代input 监听change事件 
+              .number ---输出字符串转为数字
+              .trim----输入首尾空格
+        v-pre
+        	跳过这个元素和它的子元素的编译过程
+        v-cloak
+        	{v-cloak} {display:none}可以隐藏未编译的Mustach标签直到实例准备完毕
+        v-once
+        	详细 只能渲染元素和组件一次，随后的重新渲染,元素/组件及其所有的子节点将被视为静态内容并跳过。这可以用于优化更新性能。
+	自定义指令
+		全局指令
+			Vue.directive('name',
+				bind:function(){
+			
+			})
+		实例：
+			Vue.directive('focus', {
+			  // 当绑定元素插入到 DOM 中。
+			  inserted: function (el) {
+			    // 聚焦元素
+			    el.focus()
+			  }
+			})
+		自定义指令传参数
+			Vue-directive('red',function(val){
+				alert(val)
+			})
+			<div v-red='val'></div>
+		局部指令
+			new Vue({
+				el:'#app',
+				data:{
+				
+				},
+				methods:{
+				
+				},
+				directives:{
+					red:function(el){
+						el.focus()
+					}
+				}
+			})
+		自定义元素指令
+			Vue.elementDirective('指令名称',function(){
+				bind:function(){
+					this.el.style.background='red'
+				}
+			})
+			<red></red>
+		钩子函数
+			bind
+				 只调用一次，指令第一次绑定到元素时调用，用这个钩子函数可以定义一个在绑定时执行一次的初始化动作。
+			inserted
+				被绑定元素插入父节点时调用（父节点存在即可调用，不必存在于 document 中）。
+			update
+				被绑定元素所在的模板更新时调用，而不论绑定值是否变化。通过比较更新前后的绑定值，可以忽略不必要的模板更新（详细的钩子函数参数见下）
+			componentUpdated
+				被绑定元素所在模板完成一次更新周期时调用。
+			unbind
+				只调用一次， 指令与元素解绑时调用。
+		钩子函数的参数有：
+			el
+				指令所绑定的元素，可以用来直接操作 DOM 。
+			binding
+				name: 指令名，不包括 v- 前缀。
+				value: 指令的绑定值， 例如： v-my-directive="1 + 1", value 的值是 2。
+				oldValue: 指令绑定的前一个值，仅在 update 和 componentUpdated 钩子中可用。无论值是否改变都可用。
+				expression: 绑定值的字符串形式。 例如 v-my-directive="1 + 1" ， expression 的值是 "1 + 1"。
+				arg: 传给指令的参数。例如 v-my-directive:foo， arg 的值是 "foo"。
+				modifiers: 一个包含修饰符的对象。 例如： v-my-directive.foo.bar, 修饰符对象 modifiers 的值是 { foo: true, bar: true }
+			vnode
+				Vue 编译生成的虚拟节点
+			oldVnode
+				上一个虚拟节点，仅在 update 和 componentUpdated 钩子中可用。
+5.模板
+	data:{
+		a:"acd"
+	}
+	<input type="text" v-model="a"/>
+	模板与数据同步更新
+	{{a}}
+	只更新一次
+	{{*a}}
+	需要转译模板的标签
+	data:{
+		a:"<p>这是p标签</p>"
+	}
+	{{{a}}}
+	全局组件
+		Vue.component('name',template:'<h3>模板</h3>')
+		<div>
+			<name></name>
+		</div>
+		与模板配合使用
+			<template id='aaa'>
+				<h3>模板</h3>	
+			</template>
+			var Home={template:"#aaa"}
+			Vue.component(
+				'name',Home
+			)
+			<name></name>
+	局部组件
+		<name></name>
+		var Child={
+			template:'<h3>组件</h3>'
+		}
+		<script>
+			new Vue({
+				components:{
+					'name':child
+				}
+			})
+		</script>
+		
+		与模板配合
+			var child={
+				template:'#aaa'
+			}
+			new Vue({
+				..
+				components:{
+					'name'：child
+				}
+			})	
+			<name></name>
+			<template id="aaa">
+				<h3>组件</h3>
+			</template>	
+	注意
+		必须有根元素，包裹住所有的代码
+			<template id="aaa">
+			        <div>
+			            <h3>我是组件</h3>
+			            <strong>我是加粗标签</strong>
+			        </div>
+			</template>
+	组件生命周期
+		<script>
+			new vue({
+				el:"#app",
+				components:{
+					'name':child
+				},
+				beforeCreate:function(){
+					...
+				}
+			})
+		</script>
+		beforeCreate	组件实例刚刚被创建,属性都没有
+		created	实例已经创建完成，属性已经绑定
+		beforeMount	模板编译之前
+		mounted	模板编译之后，代替之前ready  *
+		beforeUpdate	组件更新之前
+		updated	组件更新完毕	*
+		
+		beforeDestroy	组件销毁前
+		destroyed	组件销毁后
+	组件之间的通信
+6.动画
+	所有需要动画的元素都要放在这个盒子里头
+		<transition>
+			<span style="width:100px;height:100px;background:red" v-show="show"></span>
+		</transition>	
+	动画class
+		.fade-enter{}	//初始状态
+		.fade-enter-active{}  //变化成什么样  ->  当元素出来(显示)
+		
+		.fade-leave{}
+		.fade-leave-active{} //变成成什么样   -> 当元素离开(消失)
+	动画与animate.css相结合
+		<div id="box">
+	        <input type="button" value="点击显示隐藏" @click="show=!show">
+	        <transition enter-active-class="animated zoomInLeft" leave-active-class="animated zoomOutRight">
+	            <p v-show="show"></p>
+	        </transition>
+	    </div>
+	多个元素运动:
+		<transition-group enter-active-class="" leave-active-class="">
+			<p :key=""></p>
+			<p :key=""></p>
+		</transition-group>
+7.路由
+	//组件
+		var Home ={
+			template:'<h3>我是主页</h3>'
+		}
+		var news={
+			template:"<h3>我是新闻</h3>"
+		}
+	//配置路由
+		const routers=[
+			{path:"/home",componet:Home},
+			{path:"/news",componet:News},
+			{path:'*',redirect:"/home"}
+		]
+	//路由实例
+		const router=new VueRouter({
+			routers
+		})
+	//挂在vue上
+		new Vue({
+			el:"#app",
+			router
+		})
+		<div id="box">
+	        <input type="button" value="添加一个路由" @click="push">
+	        <input type="button" value="替换一个路由" @click="replace">
+	        <div>
+	            <router-link to="/home">主页</router-link>
+	            <router-link to="/news">新闻</router-link>
+	        </div>
+	        <div>
+	            <router-view></router-view>
+	        </div>
+	    </div>
+	路由重定向
+		{path:"*",redirect:"/home"}
+	路由嵌套
+		//模板
+			var home={
+				template:'<h3>我是组建</h3>'
+			}
+			var News={
+				template:`
+					<div>
+						<h3>我是标题</h3>
+						<router-link to="/user/username">用户</router-link>
+						<router-view></router-view>
+					</div>
+				`
+			}
+			var UserDetail={
+	            template:'<div>我是XX用户</div>'
+	        };
+	    //配置路由
+	    	const routers=[
+	    		{path:"/home",component:Home},
+	    		{path:"/user",component:User
+	    			children:[
+	    				{path:'username',component:UserDetail}
+	    			]
+	    		}
+	    		{path:"*",redirect:"/home"}
+	    	]
+		//生成路由实例
+			const router=new VueRouter({
+				routers
+			})
+		//挂载到vue
+			new Vue({
+				router,
+				el:"#app"
+			})
+8.监听数据变化
+	var vm=new Vue({
+		el:"#app",
+		data:{
+			a:"asd"
+		}
+	})
+	vm.@watch('a',function(){})浅度监视(只能监视基本类型【string，number。。。。】)
+	vm.@watch('a',function(){},{deep:true})深度监视
+	var vm = new Vue({
+	  data: {
+	    a: 1,
+	    b: 2,
+	    c: 3,
+	    d: 4
+	  },
+	  watch: {
+	    a: function (val, oldVal) {
+	      console.log('new: %s, old: %s', val, oldVal)
+	    },
+	    // 方法名
+	    b: 'someMethod',
+	    // 深度 watcher
+	    c: {
+	      handler: function (val, oldVal) { /* ... */ },
+	      deep: true
+	    },
+	    // 该回调将会在侦听开始之后被立即调用
+	    d: {
+	      handler: function (val, oldVal) { /* ... */ },
+	      immediate: true
+	    }
+	  }
+	})
+	vm.a = 2 // => new: 2, old: 1
+9.数据交互
+	vue交互
+		需要引入vue-resource
+		获取普通文本数据
+		<script>
+			new Vue({
+				el:"#app",
+				methods:{
+					get:function(){
+						this.$http.get('aaa.txt').then(function(res){
+							res.data
+						},function(){
+							
+						})
+					}
+				}
+			})
+		</script>
+	    给服务器发送数据
+	    this.$http.get('get.php',{
+		    a:1,
+		    b:2
+		}).then(function(res){
+		    alert(res.data);
+		},function(res){
+		    alert(res.status);
+		});
+		this.$http.get('get.php',{
+		    a:1,
+		    b:2
+		}).then(function(res){
+		    alert(res.data);
+		},function(res){
+		    alert(res.status);
+		});
+10.vue-cli
+	安装nodejs
+	安装vue-cli
+	初始化项目vue init webpack 项目名称
+	cd 项目名称
+	安装依赖npm install
+	开始运行npm run dev
+	vue-cli目录介绍
+		node-modules 通过npm install安装的项目依赖
+		build和config 是webpack配置相关
+		src 项目源码 
+		static 第三方项目资源
+11.全局api
+	11.1	Vue.extend( options )
+		使用基础 Vue 构造器，创建一个“子类”。参数是一个包含组件选项的对象。
+		data 选项是特例，需要注意 - 在 Vue.extend() 中它必须是函数
+		var Profile = Vue.extend({
+	   template: '<p>{{firstName}} {{lastName}} aka {{alias}}</p>',
+	   data: function () {
+	     return {
+	       firstName: 'Walter',
+	       lastName: 'White',
+	       alias: 'Heisenberg'
+	     }
+	   }
+	 })
+	 // 创建 Profile 实例，并挂载到一个元素上。
+	 new Profile().$mount('#mount-point')
+	 11.2	Vue.nextTick( [callback, context] )
+	 	在下次 DOM 更新循环结束之后执行延迟回调。在修改数据之后立即使用这个方法，获取更新后的 DOM。(数据更新之后才走这个函数)
+	 11.3	Vue.set( target, key, value )
+	 	参数：
+			{Object | Array} target
+			{string | number} key
+			{any} value
+		用法：
+			设置对象的属性。如果对象是响应式的，确保属性被创建后也是响应式的，同时触发视图更新。这个方法主要用于避开 Vue 不能检测属性被添加的限制。
+	11.4	Vue.delete( target, key )
+		参数：
+			{Object | Array} target
+			{string | number} key/index
+		用法：
+			删除对象的属性。如果对象是响应式的，确保删除能触发更新视图。这个方法主要用于避开 Vue 不能检测到属性被删除的限制，但是你应该很少会使用它。
+	11.5	Vue.directive( id, [definition] )
+		参数：
+			{string} id
+			{Function | Object} [definition]
+		注册或获取全局指令。
+		Vue.directive('my-directive', {
+		  bind: function () {},
+		  inserted: function () {},
+		  update: function () {},
+		  componentUpdated: function () {},
+		  unbind: function () {}
+		})
+		// 注册 (指令函数)
+		Vue.directive('my-directive', function () {
+		  // 这里将会被 `bind` 和 `update` 调用
+		})
+		// getter，返回已注册的指令
+		var myDirective = Vue.directive('my-directive')
+	11.6	Vue.filter( id, [definition] )
+		参数：
+			{string} id
+			{Function} [definition]
+			Vue.filter('my-filter', function (value) {
+			  // 返回处理后的值
+			})
+			// getter，返回已注册的过滤器
+			var myFilter = Vue.filter('my-filter')
+	11.7	Vue.component( id, [definition] )
+		参数：
+			{string} id
+			{Function | Object} [definition]
+			// 注册组件，传入一个扩展过的构造器
+			Vue.component('my-component', Vue.extend({ /* ... */ }))
+			// 注册组件，传入一个选项对象 (自动调用 Vue.extend)
+			Vue.component('my-component', { /* ... */ })
+			// 获取注册的组件 (始终返回构造器)
+			var MyComponent = Vue.component('my-component')
+	11.8	Vue.use( plugin )
+		参数：
+			{Object | Function} plugin
+			Vue.use(Router)
+	11.9	Vue.compile( template )
+		{string} template
+		var res = Vue.compile('<div><span>{{ msg }}</span></div>')
+		new Vue({
+		  data: {
+		    msg: 'hello'
+		  },
+		  render: res.render,
+		  staticRenderFns: res.staticRenderFns
+		})

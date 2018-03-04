@@ -1,0 +1,28 @@
+﻿1.ng-app=""
+	开启angular程序
+2.ng-model=“”
+	把元素值绑定到应用程序
+3.ng-bind“”
+	把应用程序绑定到DOM元素上
+4.模块定义
+	var app = angular.module('myApp', []);
+5.控制器
+	app.controller('myCtrl', function($scope) {
+   	  $scope.firstName= "John";
+    	  $scope.lastName= "Doe";
+	});
+6.模型
+	var app = angular.module('myApp', []);
+7.控制器
+	app.controller('myCtrl', function($scope) {
+    		$scope.firstName = "John";
+    		$scope.lastName = "Doe";
+	});
+8.过滤器
+	<p>总价 = {{ (quantity * price) | currency }}</p>
+9.自定义过滤器
+	app.filter('reverse', function() { //可以注入依赖
+    	    return function(text) {
+       	       return text.split("").reverse().join("");
+    	    }
+	});

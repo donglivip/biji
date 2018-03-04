@@ -1,0 +1,42 @@
+express是node js 中的一款前端框架
+路由用法：
+	var express = require('express');
+	var app = express();
+	app.get('/', function(req, res) {
+	  res.send('hello world');
+	});
+	'/',表示路由地址
+	
+	res响应的回调数据
+响应方法
+	res.download()	提示下载文件。
+	res.end()	终结响应处理流程。
+	res.json()	发送一个 JSON 格式的响应。
+	res.jsonp()	发送一个支持 JSONP 的 JSON 格式的响应。
+	res.redirect()	重定向请求。
+	res.render()	渲染视图模板。
+	res.send()	发送各种类型的响应。
+	res.sendFile	以八位字节流的形式发送文件。
+	res.sendStatus()	设置响应状态代码，并将其以字符串形式作为响应体的一部分发送。
+express.Router
+	可使用 express.Router 类创建模块化、可挂载的路由句柄。Router 实例是一个完整的中间件和路由系统，因此常称其为一个 “mini-app”。
+	var express = require('express');
+	var router = express.Router();
+	
+	// 该路由使用的中间件
+	router.use(function timeLog(req, res, next) {
+	  console.log('Time: ', Date.now());
+	  next();
+	});
+	// 定义网站主页的路由
+	router.get('/', function(req, res) {
+	  res.send('Birds home page');
+	});
+	// 定义 about 页面的路由
+	router.get('/about', function(req, res) {
+	  res.send('About birds');
+	});
+	
+	module.exports = router;
+	app.locals
+		locals一个JavaScript对象，它的属性是应用程序中的本地变量。

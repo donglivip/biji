@@ -1,0 +1,51 @@
+﻿1.下载安装ruby
+(选第二项addruby添加环境变量)
+2.打开ruby命令行
+3.键入gem install sass
+4.下载koala
+常用命令：
+	定义变量：$red：red；p{color：$red}
+	嵌套：nav{ul{...}li{...}
+	父级选择器
+		nav{
+			& li{
+
+				}
+			}
+	属性嵌套
+	p{
+		font:{
+			size:16px;
+			weight:bold;
+			family:"黑体"
+			}
+	}
+	其中&会被翻译为父级选择器
+	导入：@impotr'reset';
+	mixin:@mixin box($sizing){
+		-webkit-box-sizing:$sizing;
+		-moz-box-sizing:$sizing;
+		box-sizing:$sizing:
+	}
+	当传递参数是属性时
+	@mixin border1px($top,$color){
+	    position:relative;
+	    &:after{
+	        display: block;
+	        position: absolute;
+	        border-#{$top}: 1px solid $color;
+	        width: 100%;
+	        left: 0;
+	        bottom: 0;
+	        content: '';
+	    }
+	}
+	#{}把参数包裹起来
+	div{
+		@include box-sizing(border-box)
+	}
+	拓展，继承.message{width:100%;height:auto}
+		 .p{@extend .message}
+			css会编译为.messge,.p{width:100%;height:auto}
+				   .p{@extend .message}
+	运算：p{width:600px/960px*100%}

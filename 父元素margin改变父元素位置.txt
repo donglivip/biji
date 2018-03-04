@@ -1,0 +1,3 @@
+1.父元素设置overflow：hide
+2.父元素设置border
+3.父元素设置padding

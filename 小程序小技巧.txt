@@ -1,0 +1,308 @@
+1.nav切换
+	wxml
+		<view wx:for="{{arr}}" wx:for-index="idx" data-idx="{{idx}}" class="item-list {{num==idx?'active':''}}" bindtap="switchTap"></view>
+	js:
+		page({
+			data:{
+				num:0
+			},
+			switchTap:function(e){
+				this.setData({
+					num:e.idx
+				})
+			}
+		})
+2.模板引入
+	<import src="recommendLeftCell.wxml" />
+	<import src="recommendRightCell.wxml" />
+	
+	<scroll-view scroll-y="true" class="tab left">
+	
+	    <block wx:for="{{leftTabArray}}">
+	        <template is="recommendLeftCell" data="{{item}}" />
+	        
+	    </block>
+	
+	</scroll-view>
+	
+	<scroll-view scroll-y class="tab right" bindscrolltoupper="scrolltoupper">
+	    
+	    <block wx:for="{{rightTabArray}}" >
+	
+	        <template is="recommendRightCell" data="{{item}}" />
+	
+	    </block>
+	
+	</scroll-view>
+	引入模板
+		<import src=""/>
+		<template name="recommendLeftCell"></template>
+	使用模板
+		 <template is=""/></template>
+3.页面之间的传值
+	url='../list/list?type=0&title=aaa'
+	拿到参数
+		在jsonload中
+			onload(parms){
+			
+			}
+4.网络请求
+	wx.request({
+      url: 'https://api.douban.com/v2/movie/in_theaters',
+      data: {},
+      header: {
+      	注意！！！发生变化，与官网不同了
+        'Content-Type': 'json'
+      },
+      success: function (res) {
+        console.log(res.data)
+      }
+    })
+5.嵌套循环
+	<view class="pad10" wx:for="{{twoList}}" wx:key="{{xxx}}">
+	    <view>
+	        {{index+1}}、{{item.name}}
+	    </view>
+	     <!--二次嵌套循环-->利用item和可以来绑定循环下标名
+	    <view wx:for="{{item.XXX}}" wx:for-item="XXXX" wx:key="XXXX">
+	        ----{{XXXX.name}}
+	    </view>
+	</view>
+6.加载图层
+	 <loading hidden='{{!loading}}'>
+	    	  加载中
+	 </loading>
+	  wx.request({
+      url: apiUrl,
+      data: {},
+      header: {
+        'Content-Type': 'json'
+      },
+      success: function (res) {
+        that.setData({
+          loading:false
+        })
+      }
+    })
+7.在一个函数中调用另一个函数
+	tap:function(){
+		..
+	}
+	onShow:function(){
+		this.tap()
+	}
+8.images截取
+	mode="aspectFit"	保持纵横比缩放图片，使图片的长边能完全显示出来。也就是说，可以完整地将图片显示出来。"
+			aspectFill	保持纵横比缩放图片，只保证图片的短边能完全显示出来。也就是说，图片通常只在水平或垂直方向是完整的，另一个方向将会发生截取。
+			widthFix
+9.事件
+	tap
+		点击
+	longtap
+		长按
+	touchstart
+		触摸开始
+	touchend
+		触摸结束
+	touchmove
+		移动
+	touchcanel
+		触摸被打断
+	sumbit。input等
+	使用时有两种绑定方法
+		bind
+		catch
+			bindtap：会触发冒泡事件
+			catchtap:不会触发冒泡事件
+10.返回页面顶部
+	 wx.pageScrollTo({
+          scrollTop: 0,
+        })
+11.从本地获取图片或拍照
+	wx.chooseImage({
+	  count: 1, // 默认9
+	  sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+	  sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+	  success: function (res) {
+	    // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+	    var tempFilePaths = res.tempFilePaths
+	  }
+	})
+	count	Number	否	最多可以选择的图片张数，默认9
+	sizeType	StringArray	否	original 原图，compressed 压缩图，默认二者都有
+	sourceType	StringArray	否	album 从相册选图，camera 使用相机，默认二者都有
+	success	Function	是	成功则返回图片的本地文件路径列表 tempFilePaths
+	fail	Function	否	接口调用失败的回调函数
+	complete	Function	否	接口调用结束的回调函数（调用成功、失败都会执行）
+	预览图片
+		wx.previewImage({
+		  current: '', // 当前显示图片的http链接
+		  urls: [] // 需要预览的图片http链接列表
+		})
+		current	String	否	当前显示图片的链接，不填则默认为 urls 的第一张
+		urls	StringArray	是	需要预览的图片链接列表
+		success	Function	否	接口调用成功的回调函数
+		fail	Function	否	接口调用失败的回调函数
+		complete	Function	否	接口调用结束的回调函数（调用成功、失败都会执行）
+	wx.saveImageToPhotosAlbum
+	保存图片到系统相册。需要用户授权 scope.writePhotosAlbum
+		filePath	String	是	图片文件路径，可以是临时文件路径也可以是永久文件路径，不支持网络图片路径
+		success	Function	否	接口调用成功的回调函数
+		fail	Function	否	接口调用失败的回调函数
+		complete	Function	否	接口调用结束的回调函数（调用成功、失败都会执行）
+		wx.saveImageToPhotosAlbum({
+		    success(res) {
+		    }
+		})
+12.录音
+	wx.startRecord(OBJECT)
+	开始录音。当主动调用wx.stopRecord，或者录音超过1分钟时自动结束录音，返回录音文件的临时文件路径。当用户离开小程序时，此接口无法调用。
+	
+	需要用户授权 scope.record
+	success	Function	否	录音成功后调用，返回录音文件的临时文件路径，res = {tempFilePath: '录音文件的临时路径'}
+	fail	Function	否	接口调用失败的回调函数
+	complete	Function	否	接口调用结束的回调函数（调用成功、失败都会执行）
+	wx.stopRecord()
+​	主动调用停止录音。
+	wx.startRecord({
+	success: function(res) {
+	    var tempFilePath = res.tempFilePath 
+	  },
+	  fail: function(res) {
+	     //录音失败
+	  }
+	})
+	setTimeout(function() {
+	  //结束录音  
+	  wx.stopRecord()
+	}, 10000)
+13.拨打电话
+	wx.makePhoneCall({
+	  phoneNumber: '1340000' //仅为示例，并非真实的电话号码
+	})
+14.扫码
+	wx.scanCode(OBJECT)
+	调起客户端扫码界面，扫码成功后返回对应的结果
+	onlyFromCamera	Boolean	否	是否只能从相机扫码，不允许从相册选择图片	1.2.0
+	success	Function	否	接口调用成功的回调函数，返回内容详见返回参数说明。	
+	fail	Function	否	接口调用失败的回调函数	
+	complete	Function	否	接口调用结束的回调函数（调用成功、失败都会执行）
+	success返回参数说明：
+	
+	参数	说明
+	result	所扫码的内容
+	scanType	所扫码的类型
+	charSet	所扫码的字符集
+	path	当所扫的码为当前小程序的合法二维码时，会返回此字段，内容为二维码携带的 path
+	
+	// 允许从相机和相册扫码
+	wx.scanCode({
+	  success: (res) => {
+	    console.log(res)
+	  }
+	})
+	
+	// 只允许从相机扫码
+	wx.scanCode({
+	  onlyFromCamera: true,
+	  success: (res) => {
+	    console.log(res)
+	  }
+	})
+15.导航
+	wx.navigateTo(OBJECT)
+	保留当前页面，跳转到应用内的某个页面，使用wx.navigateBack可以返回到原页面。
+	wx.redirectTo(OBJECT)
+
+	wx.reLaunch(OBJECT)
+	基础库 1.1.0 开始支持，低版本需做兼容处理
+	
+	关闭所有页面，打开到应用内的某个页面。
+	
+	wx.switchTab(OBJECT)
+	跳转到 tabBar 页面，并关闭其他所有非 tabBar 页面
+	
+	wx.navigateBack(OBJECT)
+	关闭当前页面，返回上一页面或多级页面。可通过 getCurrentPages()) 获取当前的页面栈，决定需要返回几层。
+16.打开微信地图
+	wx.getLocation({
+	  type: 'gcj02', //返回可以用于wx.openLocation的经纬度
+	  success: function(res) {
+	    var latitude = res.latitude
+	    var longitude = res.longitude
+	    wx.openLocation({
+	      latitude: latitude,
+	      longitude: longitude,
+	      scale: 28
+	    })
+	  }
+	})
+	latitude	Float	是	纬度，范围为-90~90，负数表示南纬
+	longitude	Float	是	经度，范围为-180~180，负数表示西经
+	scale	INT	否	缩放比例，范围5~18，默认为18
+	name	String	否	位置名
+	address	String	否	地址的详细说明
+	success	Function	否	接口调用成功的回调函数
+	fail	Function	否	接口调用失败的回调函数
+	complete	Function	否	接口调用结束的回调函数（调用成功、失败都会执行）
+17.缓存
+异步缓存
+	wx.setStorage(OBJECT)异步
+	key	String	是	本地缓存中的指定的 key
+	data	Object/String	是	需要存储的内容
+	success	Function	否	接口调用成功的回调函数
+	fail	Function	否	接口调用失败的回调函数
+	complete	Function	否	接口调用结束的回调函数（调用成功、失败都会执行）
+	wx.setStorage({
+	  key:"key",
+	  data:"value"
+	})
+异步取出缓存	
+	wx.getStorage(OBJECT)
+	key	String	是	本地缓存中的指定的 key
+	success	Function	是	接口调用的回调函数,res = {data: key对应的内容}
+	fail	Function	否	接口调用失败的回调函数
+	complete	Function	否	接口调用结束的回调函数（调用成功、失败都会执行）
+	wx.getStorage({
+	  key: 'key',
+	  success: function(res) {
+	      console.log(res.data)
+	  } 
+	})
+异步移除指定key	
+	wx.removeStorage(OBJECT)
+	key	String	是	本地缓存中的指定的 key
+	success	Function	是	接口调用的回调函数
+	fail	Function	否	接口调用失败的回调函数
+	complete	Function	否	接口调用结束的回调函数（调用成功、失败都会执行）
+	wx.removeStorage({
+	  key: 'key',
+	  success: function(res) {
+	    console.log(res.data)
+	  } 
+	}
+异步删除本地key
+	wx.clearStorage()
+同步缓存	
+	wx.setStorageSync(KEY,DATA)同步
+	key	String	是本地缓存中的指定的 key
+	data	Object/String	是需要存储的内容
+	wx.setStorageSync('key', 'value')
+同步取出缓存	
+	wx.getStorageSync(KEY)
+	try {
+	  var value = wx.getStorageSync('key')
+	  if (value) {
+	      // Do something with return value
+	  }
+	} catch (e) {
+	  // Do something when catch error
+	}
+同步移除缓存	
+	wx.removeStorageSync(KEY)
+	 wx.removeStorageSync('key')
+同步删除本地key	 
+	 wx.clearStorageSync()
+18.
+	tabar和windows设置颜色是不能用中文需要使用16进制(rgb的方式不可用)
+	图片尽量放在网络环境下,访问本地路径会出现问题

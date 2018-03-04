@@ -1,0 +1,17 @@
+作用：把一些图标打包成类似bootstrapfonts文件一样的字体库，用class即可引用
+1.
+	打开官网
+		https://icomoon.io/
+2.
+	点击右上角IcoMoon App
+3.
+	点击右上角
+		Import Icons上传本地文件
+4.
+	选中要打包的文件
+5.
+	点击右下角Generate Font生成字体
+6.
+	悬浮相应图标，下有一个Get Code，点击可以看见相应的class名
+7.
+	点击右下角Download下载（点击左上角PreFerences可以改变文件名称）

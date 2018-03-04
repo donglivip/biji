@@ -1,0 +1,36 @@
+﻿1.
+	引用Echarts.js
+		<script type="text/javascript" src="Echarts.js"></script>
+2.
+	准备图表容器
+		<div id="chartmain" style="width:600px; height: 400px;"></div>
+3.
+	设置参数，初始化图表
+		<script type="text/javascript">
+       			 //指定图标的配置和数据
+       		 var option = {
+            		title:{
+                		text:'ECharts 数据统计'
+           		 },
+            		tooltip:{},
+           		 legend:{
+               			 data:['用户来源']
+           		 },
+           		 xAxis:{
+               		 	data:["Android","IOS","PC","Ohter"]
+           		 },
+           		 yAxis:{
+
+           		 },
+           		 series:[{
+               			 name:'访问量',
+               			 type:'line',
+               			 data:[500,200,360,100]
+           		 }]
+       		 };
+        		//初始化echarts实例
+        		var myChart = echarts.init(document.getElementById('chartmain'));
+
+        		//使用制定的配置项和数据显示图表
+        		myChart.setOption(option);
+    		</script>

@@ -1,0 +1,56 @@
+1.原型链继承
+	function Parent(){
+        this.name = 'mike';
+    }
+
+    function Child(){
+        this.age = 12;
+    }
+    Child.prototype = new Parent();//Child继承Parent，通过原型，形成链条
+
+    var test = new Child();
+    alert(test.age);
+    alert(test.name);//得到被继承的属性
+    //继续原型链继承
+    function Brother(){   //brother构造
+        this.weight = 60;
+    }
+    Brother.prototype = new Child();//继续原型链继承
+    var brother = new Brother();
+    alert(brother.name);//继承了Parent和Child,弹出mike
+    alert(brother.age);//弹出12
+2.使用构造函数(类式继承)
+	function Parent(age){
+        this.name = ['mike','jack','smith'];
+        this.age = age;
+    }
+    function Child(age){
+        Parent.call(this,age);
+    }
+    var test = new Child(21);
+    alert(test.age);//21
+    alert(test.name);//mike,jack,smith
+    test.name.push('bill');
+    alert(test.name);//mike,jack,smith,bill
+3.组合式继承(最常用)
+	function Parent(name) {
+	    this.name = name;
+	}
+	
+	Parent.prototype.play = function() {
+	    console.log(this.name);
+	}
+	
+	
+	function Child(name, age) {
+	    Parent.call(this, name);
+	    this.age = age;
+	}
+	
+	Child.prototype = Object.create(Parent.prototype);
+	
+	// 多态
+	Child.prototype.play = function() {
+	    Parent.prototype.play.call(this);
+	    console.log(this.age);
+	}

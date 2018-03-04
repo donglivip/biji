@@ -1,0 +1,8 @@
+1.el.getBoundingClientRect()
+	 这个方法返回一个矩形对象，包含四个属性：left、top、right和bottom。分别表示元素各边与页面上边和左边的距离。
+2.可视区域宽度
+	document.documentElement.clientHeight 获取body宽高
+	window.innerHeight 					       获取html宽高
+	区别:innerHeight会把滚动条算进去
+3.网页内容实际高度
+	offsetHeight

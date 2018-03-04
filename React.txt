@@ -1,0 +1,263 @@
+1.<script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+  <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+  <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+2.JSX基础使用
+	<script type="text/babel">
+		 ReactDOM.render(
+        	    <h1>Hello, world!</h1>,
+        	    document.getElementById('example')
+     		 );
+	</script>
+2.1js表达式
+	<script type="text/babel">
+		 ReactDOM.render(
+        	    <h1>{1+1}</h1>,
+        	    document.getElementById('example')
+     		 );
+	</script>
+2.2	<script type="text/babel">
+		var i=0;
+		ReactDOM.render(
+        	   <h1>{i==1?'true':'false'}</h1>,
+       		   document.getElementById('example')
+   		   );
+	</script>
+3.样式
+	<script type="text/babel">
+		var myStudy={
+			fontSize:100,
+			color:'red'
+		};
+		var i=0;
+		ReactDOM.render(
+        		<h1 style={myStudy}>{i==1?'true':'false'}</h1>,
+        		document.getElementById('example')
+     		 );
+	</script>
+4.注释
+	 {/*注释...*/}
+5.数组
+	<script type="text/babel">
+		var arr=[
+			<h1>草鸟教程</h1>,
+			<h1>菜鸟教程</h1>,
+		];
+		ReactDOM.render(
+        		<div>{arr}</div>,
+        		document.getElementById('example')
+     		 );
+	</script>
+6.React组件
+	 <script type="text/babel">
+     	     var HelloMessage = React.createClass({
+       		 render: function() {
+          		return <h1>Hello World！</h1>;
+       		 }
+     	     });
+      	    ReactDOM.render(
+       	        <HelloMessage />,
+        	document.getElementById('example')
+     	    );
+       </script>
+	封装了一个HelloMessage 组件
+	React.createClass用来创建一个组件
+6.1传递参数
+	<script type="text/babel">
+      		var HelloMessage = React.createClass({
+        		render: function() {
+          			return <h1>Hello {this.props.name}</h1>;
+       			 }
+      		});
+
+      		ReactDOM.render(
+        		<HelloMessage name="Runoob" />,
+        		document.getElementById('example')
+      		);
+    	</script>
+7.复合组件
+	<script type="text/babel">
+   var WebSite = React.createClass({
+      render: function() {
+        return (
+          <div>
+            <Name name={this.props.name} />
+            <Link site={this.props.site} />
+          </div>
+        );
+      }
+    });
+
+    var Name = React.createClass({
+      render: function() {
+        return (
+          <h1>{this.props.name}</h1>
+        );
+      }
+    });
+
+    var Link = React.createClass({
+      render: function() {
+        return (
+          <a href={this.props.site}>
+            {this.props.site}
+          </a>
+        );
+      }
+    });
+
+    ReactDOM.render(
+      <WebSite name="菜鸟教程" site=" http://www.runoob.com" />,
+      document.getElementById('example')
+    );
+    </script>
+8.状态切换
+	<script type="text/babel">
+      var LikeButton = React.createClass({
+//    	定义初始值可以通过this.state属性读取
+        getInitialState: function() {
+          return {liked: true};
+        },
+//      this.setState改变状态值
+        handle: function(event) {
+          this.setState({liked: !this.state.liked});
+        },
+        render: function() {
+          var text = this.state.liked ? '喜欢' : '不喜欢';
+          return (
+            <p onClick={this.handle}>
+           		   你<b>{text}</b>我。点我切换状态。
+            </p>
+          );
+        }
+      });
+      ReactDOM.render(
+        <LikeButton />,
+        document.getElementById('example')
+      );
+    </script>
+9.Poops
+<script type="text/babel">
+      var HelloMessage = React.createClass({
+        render: function() {
+          return <h1>Hello {this.props.name}</h1>;
+        }
+      });
+
+      ReactDOM.render(
+        <HelloMessage name="Runoob" />,
+        document.getElementById('example')
+      );
+</script>
+9.1Props默认值
+<script type="text/babel">
+      var HelloMessage = React.createClass({
+      getDefaultProps: function() {
+        return {
+          name: 'Runoob'
+        };
+      },
+      render: function() {
+        return <h1>Hello {this.props.name}</h1>;
+      }
+    });
+
+    ReactDOM.render(
+      <HelloMessage />,
+      document.getElementById('example')
+    );
+</script>
+10.state和props结合使用
+	    <script type="text/babel">
+    var WebSite = React.createClass({
+      getInitialState: function() {
+        return {
+          name: "菜鸟教程",
+          site: "http://www.runoob.com"
+        };
+      },
+     
+      render: function() {
+        return (
+          <div>
+            <Name name={this.state.name} />
+            <Link site={this.state.site} />
+          </div>
+        );
+      }
+    });
+
+    var Name = React.createClass({
+      render: function() {
+        return (
+          <h1>{this.props.name}</h1>
+        );
+      }
+    });
+
+    var Link = React.createClass({
+      render: function() {
+        return (
+          <a href={this.props.site}>
+            {this.props.site}
+          </a>
+        );
+      }
+    });
+
+    ReactDOM.render(
+      <WebSite />,
+      document.getElementById('example')
+    );
+    </script>
+11.React验证
+<script type="text/babel">
+    var title = "菜鸟教程";
+    // var title = 123;
+    var MyTitle = React.createClass({
+      propTypes: {
+        title: React.PropTypes.string.isRequired,
+      },
+
+      render: function() {
+         return <h1> {this.props.title} </h1>;
+       }
+    });
+    ReactDOM.render(
+        <MyTitle title={title} />,
+        document.getElementById('example')
+    );
+</script>
+12.setState组件
+	设置状态：setState（object nextState[function callback]）
+	nextState:新状态值
+	callback：回调函数
+	 <script type="text/babel">
+      var Counter = React.createClass({
+        getInitialState: function () {
+          return { clickCount: 0 };
+        },
+        handleClick: function () {
+          this.setState(function(state) {
+            return {clickCount: state.clickCount + 1};
+          });
+        },
+        render: function () {
+          return (<h2 onClick={this.handleClick}>点我！点击次数为: {this.state.clickCount}</h2>);
+        }
+      });
+      ReactDOM.render(
+        <Counter />,
+        document.getElementById('message')
+      );
+    </script>
+13.setProps
+	setProps(object nextProps[, function callback])
+	nextProps新状态值
+	callback：回调函数
+14.替换属性replaceProps
+	replaceProps(object nextProps[, function callback])
+	nextProps新状态值
+	callback：回调函数
+	类似setProps，但是会删除原来的
+15.获取DOM节点
+	DOMElement findDOMNode()

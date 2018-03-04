@@ -1,0 +1,1 @@
+<a href="#" onclick="window.external.addFavorite(this.href,this.title);return false;" rel="sidebar">º”»Î ’≤ÿ</a>

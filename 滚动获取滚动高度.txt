@@ -1,0 +1,4 @@
+window.onscroll = function() {
+		var Stop = document.documentElement.scrollTop || document.body.scrollTop;
+		var Cheight = document.documentElement.clientHeight || document.body.clientHeight;
+	}

@@ -1,0 +1,2 @@
+父元素设置高度和相对定位
+子元素设置height：100%；position：absolute

@@ -1,0 +1,36 @@
+﻿1.
+	.box{
+		display:
+			flex;
+		flex-direction:
+			row(水平方向，起点在左端)
+			row-resverse水平方向，起点在右端
+			column垂直方向起点在上部
+			column-resverse垂直方向起点在底部
+		flex-wapper：
+			nowrap：不换行
+			wrap：换行第一行在上方
+			wrap-reserves换行第一行在下方
+		flex-flow:(是flex-direction和flex-wapper的简写)
+			默认值：row nowrap
+		justify-content（对齐方式）
+			flex-start:左侧对齐
+			flex-end:右侧对齐
+			center居中对齐
+			space-between:左右都不留边（两端对齐，项目之间的间隔都相等。）
+			space-around:左右留边（每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍）
+		align-items:(交叉轴（富轴）对齐方式)
+			flex:start交叉轴起点对齐
+			flex;end交叉轴的终点对齐。
+			center：交叉轴的中点对齐。
+			baseline: 项目的第一行文字的基线对齐。
+			stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。
+		}
+2.项目属性
+	order：(number)
+		定义排列顺序顺序越小越靠前
+	flex-grow;(number)
+		定义项目的放大比例
+	flex-shrink：(number)
+		项目的缩小比例
+		

@@ -1,0 +1,30 @@
+10.1
+			原型
+				每个函数在创建的时候,都自动添加prototype和_proto_属性,prototype就是原型对象,它记录着函数的一些属性和方法。
+		10.2
+			原型链
+				JS在创建对象（不论是普通对象还是函数对象）的时候，都有一个叫做__proto__的内置属性，用于继承父级元素的prototype
+				10.2.1
+					原型链查找机制
+						对象在查找某个属性时,会先便利自身的属性,如果没有找到就查找prototype引用的对象,如何让还没有,就继续往下一级查找,直到值为underfined
+						
+		10.3
+			constructor(始终指向创建当前函数的构造函数)
+那么prototype到底怎么用呢
+	prototype是一个隐式属性,直接调用不到
+		function f(){}
+		f.prototype.foo = "abc";
+		console.log(f.foo); //undefined
+那么prototype到底怎么用呢
+	其实prototype说到底是在继承的时候用的,通俗来说就是留给他的后代用的,自己不可调用
+那么后代是如何继承腹肌的圆形的呢,就是通过原型链_proto_
+	它的作用就是引用父类的 prototype 对象，JS在通过 new 操作符创建一个对象的时候，通常会把父类的 prototype 赋值给新对象的__proto__属性，这样就形成了一代代传承...
+	function f(){}
+	f.prototype.foo = "abc";
+	var obj = new f();
+	console.log(obj.foo); //abc
+当new一个构造函数时,实际上执行了如下操作
+	1.新建一个对象
+	2.拷贝(链接)父级对象的prototype到新建的对象中
+	3.将这个函数通过this关键字传递到构造函数中并执行构造函数
+	4.把这个变量赋值给定义的变量

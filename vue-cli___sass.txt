@@ -1,0 +1,9 @@
+1.安装loader
+	npm install node-sass --save-dev  
+	npm install sass-loader --save-dev 
+2.打开webpack.base.config.js在loaders里面加上  module -- rules
+	{  
+        test: /\.scss$/,  
+        loaders: ["style", "css", "sass"]  
+      },  
+3.<style lang="scss" scoped="" type="text/css"></style>  

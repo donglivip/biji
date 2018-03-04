@@ -1,0 +1,33 @@
+﻿作用：将多个js以及css打包成一个js
+
+1.安装node js
+2.安装cnpm（可选）
+	npm install cnpm -g
+3.安装webpack
+	cnpm install webpack -g
+4.
+	cnpm install css-loader style-loader babel-loader babel babel-core url-loader file-loader sass-loader --saver-dev
+5.
+	npm init
+6.
+	配置webpack.congif.js
+	var webpack=require('webpack');
+	module.exports = {
+	    entry: "./index.js",
+	    output: {
+	        path: __dirname,
+	        filename: "dist/bundle.js"
+	    },
+	    module: {
+	//  	css加载器
+	        loaders: [
+	            { test: /\.css$/, loader: "style-loader!css-loader" }
+	        ]
+	    },
+	    plugins:[
+	//  	生成头部注释
+	    	new webpack.BannerPlugin('菜鸟教程 webpack 实例')
+	    ]
+	};	
+7.
+	运行webpack
