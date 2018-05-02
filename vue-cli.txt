@@ -1,0 +1,102 @@
+	1.安装nodejs
+	2.安装vue-cli
+	3.初始化项目vue init webpack 项目名称
+	4.cd 项目名称
+	5.安装依赖npm install
+	6.开始运行npm run dev
+	使用sass
+		npm install node-sass --save-dev  
+		npm install sass-loader --save-dev 
+		{  
+	        test: /\.scss$/,  
+	        loaders: ["style", "css", "sass"]  
+	      },  
+		<style lang="scss" scoped="" type="text/css"></style>  
+	使用axios
+	    npm install axios -s
+	    在main.js引入
+	    import axios form 'axios'
+	  改写原型链
+	  	Vue.prototype.axios=axios
+	 使用
+	 	this.axios.get(this.url + '/queryuserCarsouelAll').then((res) => {
+					console.log(res)
+				}).catch((err) => {
+					console.log(err);
+				})	
+	使用swiper
+		npm install vue-awesome-swiper --save-dev
+		main.js
+			import VueAwesomeSwiper from 'vue-awesome-swiper'
+			import 'swiper/dist/css/swiper.css'
+		使用
+			Vue.use(VueAwesomeSwiper)
+			<swiper :options="swiperOption" ref="mySwiper">
+				<!-- 这部分放你要渲染的那些内容 -->
+				<swiper-slide>
+					<img src="../../assets/1.png" />
+				</swiper-slide>
+				<swiper-slide>
+					<img src="../../assets/2.png" />
+				</swiper-slide>
+				<swiper-slide>
+					<img src="../../assets/3.png" />
+				</swiper-slide>
+				<swiper-slide>
+					<img src="../../assets/4.png" />
+				</swiper-slide>
+				<!-- 这是轮播的小圆点 -->
+				<div class="swiper-pagination" slot="pagination"></div>
+				<div class="swiper-button-prev" slot="button-prev"></div>
+				<div class="swiper-button-next" slot="button-next"></div>
+			</swiper>
+			import { swiper, swiperSlide } from 'vue-awesome-swiper'
+			data() {
+				return {
+					swiperOption: {
+						autoplay: {
+							stopOnLastSlide: true,
+						},
+						loop: true,
+						pagination: {
+							el: '.swiper-pagination'
+						},
+						navigation: {
+							nextEl: '.swiper-button-next',
+							prevEl: '.swiper-button-prev'
+						},
+					}
+				}
+			},
+			components: {
+				swiper,
+				swiperSlide
+			},
+			computed: {
+				swiper() {
+					return this.$refs.mySwiper.swiper;
+				}
+			},
+	使用vuex
+		 	npm install vuex -s
+		main.js
+			import Vuex from 'vuex'
+			import store from './vuex/store'
+			新建store内容
+			import Vue from 'vue'
+			import Vuex from 'vuex'
+			
+			Vue.use(Vuex)
+			
+			const store = new Vuex.Store({
+			  // 定义状态
+			  state: {
+			    
+			  }
+			})
+			
+			export default store
+		Vue.use(Vuex)
+		new Vue({
+			store
+		})

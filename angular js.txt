@@ -26,3 +26,20 @@
        	       return text.split("").reverse().join("");
     	    }
 	});
+angular脚手架
+1.全局安装ng-cli	
+	$ npm install -g @angular/cli
+2.新建项目
+	$ ng new my-app
+3.进入项目目录
+	cd my-ap
+4.启动服务
+	ng serve -open
+	https://www.jianshu.com/p/327d88284abb
+	
+
+国内镜像
+ng new my-app --skip-install
+cd my-app
+cnpm install
+ng serve
