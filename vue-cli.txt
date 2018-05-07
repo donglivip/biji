@@ -96,7 +96,34 @@
 			})
 			
 			export default store
-		Vue.use(Vuex)
-		new Vue({
-			store
-		})
+		按需引入组件
+			MyHeader:resolve => require(['./header'],resolve),
+			MyFooter:resolve => require(['./footer'],resolve)
+		按需路由
+			routes: [{
+				path: '/home',
+				name: 'home',
+				component: resolve => require(['@/components/home/home'], resolve)
+			}
+			
+		动画
+			.fade-enter-active, .fade-leave-active {
+			transform: translateX(0);
+			  transition: all .6s;
+			}
+			.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+			  transform: translateX(-100%);
+			}
+		js控制路由
+			this.$router.push({
+					name: '' + target + ''
+				});
+		获取vuex指
+			 computed: {
+			      back () {	
+			        return this.$store.state.back
+			      },
+			      head () {	
+			        return this.$store.state.head
+			      }
+			    }
