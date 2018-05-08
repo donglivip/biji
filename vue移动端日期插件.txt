@@ -1,0 +1,20 @@
+npm install vue-mobile-calendar
+
+main.js	
+	import Vue from 'vue'
+	import Calendar from 'vue-mobile-calendar'
+
+	Vue.use(Calendar)
+	
+	<calendar
+    v-model="calendarShow"
+    :defaultDate="defaultDate"
+    @change="handelChange">
+	</calendar>
+	
+	handelChange：function(date,formatDate){
+	
+	}
+
+
+	https://segmentfault.com/a/1190000013284700

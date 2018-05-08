@@ -118,7 +118,7 @@
 			this.$router.push({
 					name: '' + target + ''
 				});
-		获取vuex指
+		获取vuex值
 			 computed: {
 			      back () {	
 			        return this.$store.state.back
@@ -127,3 +127,13 @@
 			        return this.$store.state.head
 			      }
 			    }
+	使用高德地图
+			在index.html
+					<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.4&key=3adc59b361b877d943cda0ce50b9b4da"></script>
+    				<script src="http://webapi.amap.com/ui/1.0/main.js" type="text/javascript" charset="utf-8"></script>
+    		webpack.base.conf.js
+    				externals: {
+				   	 'AMap': 'AMap'
+					}
+			vue	
+				import AMap from 'AMap'
