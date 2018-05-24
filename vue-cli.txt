@@ -77,6 +77,8 @@
 					return this.$refs.mySwiper.swiper;
 				}
 			},
+			禁止滑动
+			class='swiper-no-swiping'
 	使用vuex
 		 	npm install vuex -s
 		main.js
@@ -253,3 +255,50 @@
 				return Math.floor(Math.random() * 100000000 + 10000000).toString();
 			}
 		}
+是用地址选择插件
+	npm install v-distpicker --save
+	import VDistpicker from 'v-distpicker'
+
+	export default {
+	  components: { VDistpicker }
+	}
+	
+		
+	Default Value:
+	
+	<v-distpicker province="广东省" city="广州市" area="海珠区"></v-distpicker>
+	Mobile:
+	
+	<v-distpicker type="mobile"></v-distpicker>
+	
+	<v-distpicker type="mobile" @selected="onSelected"></v-distpicker>
+	
+
+		  	onSelected:function(data){
+				this.$store.state.citydata = data.province.value + data.city.value + data.area.value
+				console.log(this.$store.state.citydata)
+			},
+			
+子组件调用父组件方法
+Parent.vue
+		 <child @citychange="citychange"></child>
+		 
+		  methods: {
+	            citychange () {
+	                
+	            }
+	        },
+		 
+Child.vue
+		this.$emit('citychange');
+		
+
+使用echart图表	
+		cnpm install echarts -S
+		
+		import echarts from 'echarts'
+		
+		<div id="myChart"></div>
+		
+		let myChart = this.$echarts.init(document.getElementById('myChart'))
+		myChart.setOption(option）
