@@ -12,7 +12,7 @@ main.js
     @change="handelChange">
 	</calendar>
 	
-	handelChange：function(date,formatDate){
+	handelChange:function(date,formatDate){
 	
 	}
 

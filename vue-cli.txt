@@ -302,3 +302,22 @@ Child.vue
 		
 		let myChart = this.$echarts.init(document.getElementById('myChart'))
 		myChart.setOption(option）
+		
+日期选择插件
+	npm install vue-mobile-calendar
+
+main.js	
+	import Vue from 'vue'
+	import Calendar from 'vue-mobile-calendar'
+
+	Vue.use(Calendar)
+	
+	<calendar
+    v-model="calendarShow"
+    :defaultDate="defaultDate"
+    @change="handelChange">
+	</calendar>
+	
+	handelChange：function(date,formatDate){
+	
+	}
