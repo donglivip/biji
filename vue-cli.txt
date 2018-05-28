@@ -300,8 +300,8 @@ Child.vue
 		
 		<div id="myChart"></div>
 		
-		let myChart = this.$echarts.init(document.getElementById('myChart'))
-		myChart.setOption(option）
+		let myChart = echarts.init(document.getElementById('myChart'))
+		myChart.setOption(option)
 		
 日期选择插件
 	npm install vue-mobile-calendar
