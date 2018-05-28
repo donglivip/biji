@@ -17,9 +17,16 @@
 	    在main.js引入
 	    import axios form 'axios'
 	  改写原型链
-	  	Vue.prototype.axios=axios
+	  	Vue.prototype.$ajax = axios
 	 使用
-	 	this.axios.get(this.url + '/queryuserCarsouelAll').then((res) => {
+	 	this.$ajax({
+			      method: 'get',
+			      url: that.service+'/queryLoginByCuserPhone',
+			      data: {
+			        cuserPhone: that.phone,
+			        cuserPassword:that.pwd
+			      }
+			   	}).then((res) => {
 					console.log(res)
 				}).catch((err) => {
 					console.log(err);
@@ -321,3 +328,20 @@ main.js
 	handelChange：function(date,formatDate){
 	
 	}
+	
+
+使用jquery
+	npm install jquery --save-dev 
+	
+	build文件夹下的webpack.base.conf.js
+	
+	var webpack=require('webpack')
+	
+	在module.exports中加入
+	plugins: [ 
+           new webpack.ProvidePlugin({ 
+                 $:"jquery", 
+                 jQuery:"jquery", 
+                "windows.jQuery":"jquery"
+        }) 
+      ]
