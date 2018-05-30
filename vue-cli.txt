@@ -345,3 +345,29 @@ main.js
                 "windows.jQuery":"jquery"
         }) 
       ]
+      
+
+使用foemData
+		<form @submit.prevent="submit($event)">
+		
+		submit: function(event) {
+			var formData = new FormData(event.target);
+			$.ajax({
+					type: "post",
+					url: that.service + "/register",
+					dataType: 'json',
+					contentType: false,
+					processData: false,
+					data: formData,
+					success: function(res) {
+						if(res.status != 200) {
+							alert(res.msg)
+							return
+						}
+						that.opennew('login')
+					}
+				});
+		}
+		
+:src失效
+	picPath: require('../../static/creame.png'),
