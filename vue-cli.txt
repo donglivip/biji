@@ -371,3 +371,17 @@ main.js
 		
 :src失效
 	picPath: require('../../static/creame.png'),
+	
+
+keep-alive
+	<keep-alive>
+		<router-view v-if="$route.meta.keepAlive" class="child-view"></router-view>
+	</keep-alive>
+	<router-view v-if="!$route.meta.keepAlive" class="child-view"></router-view>  
+			
+	{
+      path: '/wwang',
+      name: 'wwang',
+      component:resolve => require(['@/components/wadmin/wwang'], resolve),
+      meta: { keepAlive: true}  
+    }
