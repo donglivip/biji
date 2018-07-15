@@ -1,0 +1,141 @@
+1.变量和作用域
+	$x=2;
+		变量以 $ 符号开始，后面跟着变量的名称
+		变量名必须以字母或者下划线字符开始
+		变量名只能包含字母数字字符以及下划线（A-z、0-9 和 _ ）
+		变量名不能包含空格
+		变量名是区分大小写的（$y 和 $Y 是两个不同的变量）
+
+	1.1 ->global 关键字
+		在函数内调用函数外部的全局变量时，需要使用global 关键字
+			$x=5;
+			$y=10;
+			function myTest(){
+			    global $x,$y;
+			    $y=$x+$y;
+			}
+	1.2 ->Static 作用域
+		一个变量在用完以后，计算机默认会删除此变量，当你想一个变量在使用完以后，继续存在时，使用Static 作用域
+		function myTest(){
+		    static $x=0;
+		    echo $x;
+		    $x++;
+		}
+ 
+	1.3参数作用域
+		function myTest($x)
+		{
+		    echo $x;
+		}
+		myTest(5);
+		
+2.输出语句，echo和print	
+	区别：
+		echo - 可以输出一个或多个字符串
+		print - 只允许输出一个字符串，返回值总为 1
+		
+		echo "这是一个", "字符串，", "使用了", "多个", "参数。";变量需要拼接
+		
+
+		print "我车的品牌是 {$cars[0]}"; 变量可以直接放进去
+		
+3.php常量
+	常量是一个简单值的标识符。该值在脚本中不能改变。常量是全局的
+	bool define ( string $name , mixed $value [, bool $case_insensitive = false ] )
+	
+	name：必选参数，常量名称，即标志符。
+	value：必选参数，常量的值。
+	case_insensitive ：可选参数，如果设置为 TRUE，该常量则大小写不敏感。默认是大小写敏感的。
+	
+4.php字符串
+	4.1 ->并置运算符（拼接字符串）
+		$txt1="Hello world!";
+		$txt2="What a nice day!";
+		echo $txt1 . " " . $txt2;
+		
+	4.2 ->strlen() 函数，返回字符串长度
+		echo strlen("Hello world!");
+		
+	4.3 ->strpos() 函数.在字符串中查找,如果在字符串中找到匹配，该函数会返回第一个匹配的字符位置。如果未找到匹配，则返回 FALSE
+		echo strpos("Hello world!","world");
+		
+5.php运算符
+	5.1 ->算数运算符
+		x + y	加	x 和 y 的和	2 + 2	4
+		x - y	减	x 和 y 的差	5 - 2	3
+		x * y	乘	x 和 y 的积	5 * 2	10
+		x / y	除	x 和 y 的商	15 / 5	3
+		x % y	模（除法的余数）	x 除以 y 的余数	5 % 2
+		10 % 8
+		10 % 2	1
+		2
+		0
+		- x	取反	x 取反	-2	-2
+		a . b	并置	连接两个字符串	"Hi" . "Ha"	HiHa
+		
+	5.2 ->赋值运算符
+		x = y	x = y	左操作数被设置为右侧表达式的值
+		x += y	x = x + y	加
+		x -= y	x = x - y	减
+		x *= y	x = x * y	乘
+		x /= y	x = x / y	除
+		x %= y	x = x % y	模（除法的余数）
+		a .= b	a = a . b	连接两个字符串
+		
+	5.3 ->递增/递减运算符
+		++ x	预递增	x 加 1，然后返回 x
+		x ++	后递增	返回 x，然后 x 加 1
+		-- x	预递减	x 减 1，然后返回 x
+		x --	后递减	返回 x，然后 x 减 1
+		
+	5.4 ->比较运算符
+		x == y	等于	如果 x 等于 y，则返回 true	5==8 返回 false
+		x === y	绝对等于	如果 x 等于 y，且它们类型相同，则返回 true	5==="5" 返回 false
+		x != y	不等于	如果 x 不等于 y，则返回 true	5!=8 返回 true
+		x <> y	不等于	如果 x 不等于 y，则返回 true	5<>8 返回 true
+		x !== y	绝对不等于	如果 x 不等于 y，或它们类型不相同，则返回 true	5!=="5" 返回 true
+		x > y	大于	如果 x 大于 y，则返回 true	5>8 返回 false
+		x < y	小于	如果 x 小于 y，则返回 true	5<8 返回 true
+		x >= y	大于等于	如果 x 大于或者等于 y，则返回 true	5>=8 返回 false
+		x <= y	小于等于	如果 x 小于或者等于 y，则返回 true	5<=8 返回 true
+		
+	5.5 ->逻辑运算符
+		x and y	与	如果 x 和 y 都为 true，则返回 true	x=6
+		y=3 
+		(x < 10 and y > 1) 返回 true
+		x or y	或	如果 x 和 y 至少有一个为 true，则返回 true	x=6
+		y=3 
+		(x==6 or y==5) 返回 true
+		x xor y	异或	如果 x 和 y 有且仅有一个为 true，则返回 true	x=6
+		y=3 
+		(x==6 xor y==3) 返回 false
+		x && y	与	如果 x 和 y 都为 true，则返回 true	x=6
+		y=3
+		(x < 10 && y > 1) 返回 true
+		x || y	或	如果 x 和 y 至少有一个为 true，则返回 true	x=6
+		y=3
+		(x==5 || y==5) 返回 false
+		! x	非	如果 x 不为 true，则返回 true	x=6
+		y=3
+		!(x==y) 返回 true
+		
+	5.6 ->数组运算符
+		x + y	集合	x 和 y 的集合
+		x == y	相等	如果 x 和 y 具有相同的键/值对，则返回 true
+		x === y	恒等	如果 x 和 y 具有相同的键/值对，且顺序相同类型相同，则返回 true
+		x != y	不相等	如果 x 不等于 y，则返回 true
+		x <> y	不相等	如果 x 不等于 y，则返回 true
+		x !== y	不恒等	如果 x 不等于 y，则返回 true
+		
+	5.7 ->三元运算符
+		(expr1) ? (expr2) : (expr3) 
+		
+		
+6 数组
+	6.1 ->数组的定义
+		$cars=array("Volvo","BMW","Toyota");
+	6.2 ->获取数组的长度
+		$cars=array("Volvo","BMW","Toyota");
+		echo count($cars);
+	
+		

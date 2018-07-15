@@ -385,3 +385,16 @@ keep-alive
       component:resolve => require(['@/components/wadmin/wwang'], resolve),
       meta: { keepAlive: true}  
     }
+    
+
+背景图片
+	build/utils/
+	 if (options.extract) {
+      return ExtractTextPlugin.extract({
+        use: loaders,
+        fallback: 'vue-style-loader',
+        publicPath:'../../',
+      })
+    } else {
+      return ['vue-style-loader'].concat(loaders)
+    }
