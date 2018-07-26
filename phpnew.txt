@@ -138,4 +138,63 @@
 		$cars=array("Volvo","BMW","Toyota");
 		echo count($cars);
 	
+7.编码格式修改
+	header("Content-type: text/html; charset=utf-8");
+	
+8.连接数据库
+	$con = mysqli_connect('localhost','root','root');
+	if (!$con)
+	{
+	    die('Could not connect: ' . mysqli_error($con));
+	}
+	// 选择数据库
+	mysqli_select_db($con,"onecms");
+	
+9.引入外部php
+	include 'mysql.php'
+	
+10.php插入语句
+	insert into message(title,content) values('$tit','$con')"
+	插入多条语句
+		insert into persons 
+		(id_p, lastname , firstName, city )
+		values
+		(200,'haha' , 'deng' , 'shenzhen'),
+		(201,'haha2' , 'deng' , 'GD'),
+		(202,'haha3' , 'deng' , 'Beijing');
 		
+11.查询语句
+	$sql = "SELECT id, firstname, lastname FROM MyGuests";
+	$result = mysqli_query($conn, $sql);
+	 
+	if (mysqli_num_rows($result) > 0) {
+	    // 输出数据
+	    while($row = mysqli_fetch_assoc($result)) {
+	        echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
+	    }
+	} else {
+	    echo "0 结果";
+	}
+	
+12.where关键字(类似条件语句)
+	$result = mysqli_query($con,"SELECT * FROM Persons WHERE FirstName='Peter'");
+	
+13.order by(对数据进行升序排序)DESC(降序)
+
+	$result = mysqli_query($con,"SELECT * FROM Persons ORDER BY age");按照年龄进行排序
+	
+	根据两列数据进行排序
+	
+		SELECT column_name(s) FROM table_name ORDER BY column1, column2; 当第一列数据相同时才使用第二列
+		
+14.修改数据
+
+	UPDATE Persons SET Age=36 WHERE FirstName='Peter' AND LastName='Griffin'
+	
+15.删除语句
+	
+	DELETE FROM table_name WHERE some_column = some_value
+
+16.页面跳转
+	
+	header("Refresh:3;url=index.html");
