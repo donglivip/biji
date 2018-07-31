@@ -154,7 +154,13 @@
 	include 'mysql.php'
 	
 10.php插入语句
-	insert into message(title,content) values('$tit','$con')"
+	$sql = "INSERT INTO user (username, pwd) VALUES (".$uname.", ".$upwd.")";
+	if ($con->query($sql) === TRUE) {
+	    echo json_encode($response);
+	} else {
+		$response['message']=$con->error;
+	    echo json_encode($response);
+	}
 	插入多条语句
 		insert into persons 
 		(id_p, lastname , firstName, city )
@@ -188,7 +194,7 @@
 		SELECT column_name(s) FROM table_name ORDER BY column1, column2; 当第一列数据相同时才使用第二列
 		
 14.修改数据
-
+	
 	UPDATE Persons SET Age=36 WHERE FirstName='Peter' AND LastName='Griffin'
 	
 15.删除语句
@@ -198,3 +204,7 @@
 16.页面跳转
 	
 	header("Refresh:3;url=index.html");
+	
+17.强制类型转换
+
+	json_encode($response)
