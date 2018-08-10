@@ -208,3 +208,64 @@
 17.强制类型转换
 
 	json_encode($response)
+	
+18.ajax跨域
+	header('Access-Control-Allow-Origin:*');
+	
+20.获取传值
+
+	$uname = isset($_POST["uname"]) ?$_POST["uname"]: '';
+	$upwd = isset($_POST["upwd"]) ?$_POST["upwd"]: '';
+	
+21.ajax返回值
+
+	$response = array(
+	 'code' => '200', 
+	 'message' => 'success for request',
+	 'data' => ''
+	 );
+	if (mysqli_num_rows($result) > 0) {
+	    // 输出数据
+	    while($row = mysqli_fetch_assoc($result)) {
+			if($row["username"]==$uname){
+				$zboo=true;
+				if($row["pwd"]==$upwd){
+					$mboo=true;
+					$data['uid']= $row["id"];
+					$data['uname']= $row["username"];
+					$data['upwd']= $row["pwd"];
+					$response['data']=$data;
+				}
+			}
+	    }
+	} else {
+	   $response['code']=300;
+	   $response['message']='账号不存在';
+	}
+	if($zboo==false){
+		$response['code']=300;
+		$response['message']='账号不存在';
+	}else{
+		if($mboo==false){
+			$response['code']=300;
+			$response['message']='密码错误';
+		}
+	}
+
+22.返回数据json化
+	 echo json_encode($res);
+	
+
+23.往数组中添加对象
+
+	$data = array();
+	if(mysqli_num_rows($result)>0){
+		while($row = mysqli_fetch_assoc($result)) {
+	       $data[]=array(
+			'id' => $row['id'],
+			'name' => $row['name']
+			);
+	    };
+		$res['data']=$data;
+		echo json_encode($res);
+	}
