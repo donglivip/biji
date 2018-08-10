@@ -1,0 +1,72 @@
+1.ajax请求
+	uni.request({
+							url: templateMessageUrl,
+							method: 'POST',
+							data: {
+								form_id,
+								openid,
+								formData
+							},
+							success: (res) => {
+								console.log('submit form success', res)
+								uni.showToast({
+									title: '发送成功',
+									icon: 'success'
+								})
+								this.loading = false
+							}
+	
+						})
+						
+						
+2.路由配置
+
+	pages.json中（第一个为启动页）
+		{
+			"path": "pages/component/component",
+			"style": {
+				"navigationBarTitleText": "组件"
+			}
+		}, {
+			"path": "pages/API/API",
+			"style": {
+				"navigationBarTitleText": "接口"
+			}
+		}, {
+			"path": "pages/template/template",
+			"style": {
+				"navigationBarTitleText": "模版"
+			}
+		}
+		
+		
+		
+3.小程序分享（跟data平级）
+
+
+		onShareAppMessage() {
+			return {
+				title: '欢迎体验uniapp',
+				path: '/pages/component/component'
+			}
+		}
+		
+		
+4.页面跳转
+
+	uni.navigateTo({
+		url: '/pages/component/' + e + '/' + e
+	})
+	
+
+5.子元素获取父元素传递的值
+
+	props: {
+		title: {
+			type: String,
+			default: ""
+		}
+	}
+	
+	
+	<parent :title='内容'></parent>
