@@ -1,0 +1,6 @@
+1.全局安装bower
+	npm install bower -g
+	
+2.初始化
+
+	bower init
