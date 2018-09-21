@@ -2,20 +2,22 @@ input[type=radio] {
 		display: inline-block;
 		vertical-align: middle;
 		width: .4rem;
-		height: .4rem;
+		height: .4rem!important;
 		-webkit-appearance: none;
 		background-color: transparent;
 		border: 0;
 		outline: 0 !important;
-		line-height: 20px;
 		color: #d8d8d8;
-		margin: .2rem;
+		line-height: .4rem;
+		margin: 0 .3rem!important;
 	}
-	input[type=file]{
+	
+	input[type=file] {
 		opacity: 0;
 	}
+	
 	input[type=radio]:after {
-		content: "";
+		content: "✓";
 		display: block;
 		width: .4rem;
 		height: .4rem;
@@ -29,6 +31,6 @@ input[type=radio] {
 	}
 	
 	input[type=radio]:checked:after {
-		border-color: #1e81d6;
-		background-color: #1e81d6;
+		border-color: #00c6c8;
+		background-color: #00c6c8;
 	}
