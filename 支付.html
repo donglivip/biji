@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="description" content="XXX">
+		<meta name="keywords" content="XXX">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-status-bar-style" content=" black " />
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="full-screen" content="yes">
+		<meta name="x5-fullscreen" content="true">
+		<meta name="applicable-device" content="mobile">
+		<title>确认订单-陆陆捌货到家</title>
+		<link href="../../favicon.ico" rel="shortcut icon">
+		<link rel="stylesheet" href="../../css/m.debug.css">
+		<script src="../../js/flexible.js"></script>
+		<script src="../../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<style>
+		html,body,#app{width: 100%;height: 100%;position: relative;}
+		.car_price{position: absolute;}
+	</style>
+	<body class="list_body">
+		<div id="app">
+			<!--头部-->
+			<header class="header">
+				<a class='icon iconfont icon-left_arrow js_back' href="javascript:history.back();"></a>
+				<h5>确认订单</h5>
+			</header>
+			<!--列表-->
+			<section class="order_sure">
+				<ul class="list_con box-size client">
+					<li>
+						<a href="add_require.html">
+							<p>额外需求</p>
+							<div>
+								<p>是否需要搬运、回单等服务</p>
+								<i class="icon iconfont icon-jiantou-copy1"></i>
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="javascript:;" class="book_yj">
+							<p>预计货物重量</p>
+							<input type="number" placeholder="请输入预计货物重量(单位:吨)" v-model="weight" @change="weightchange">
+						</a>
+					</li>
+					<li>
+						<a href="javascript:;" class="book_yj">
+							<p>订单时间</p>
+							<input type="text" :value="mytime" disabled="" style="text-align: right;float: right;color: #f46620;">
+						</a>
+					</li>
+					<li class="sure_list2">
+						<a href="javascript:void(0)">
+							<p>订单备注</p>
+						</a>
+						<textarea name="note" id="note" placeholder="请输入订单备注:一箱瓷砖,一箱水果,一个凳子,一台电冰箱,一杯咖啡...." v-model="note"></textarea>
+					</li>
+				</ul>
+			</section>
+			<section class="order_sure c_phone">
+				<div class="desc">若涉及高速费、停车费、搬运费，请用户额外支付</div>
+				<div class="desc">
+					<input type="checkbox" name="goods" id="goods" checked>
+					<label for="goods">我已阅读并同意 <a href="ty_xy.html" class="xy">《货物运托服务协议》</a></label>
+				</div>
+			</section>
+
+			<div class="car_price box-size">
+				<div class="btn">
+					<a href="javascript:;" class="js_price">
+						建议报价¥
+						<input type="number" id="myprice" v-model="price" />
+						<span class="changePrice" @click="changePrice">
+							修改价格
+						</span>
+					</a>
+				</div>
+				<div class="btn">
+					<a href="javascript:;" class="next" @click="topay">支付宝</a>
+					<a href="javascript:;" class="next" @click="wxpay">微信</a>
+				</div>
+			</div>
+			<div class="payment_cover"></div>
+		</div>
+		<script type="text/javascript">
+			var myvue = new Vue({
+				el: '#app',
+				data: {
+					note: '',
+					weight: '',
+					myappointmentStatus: '',
+					price: 0,
+					mytime: '',
+					alllength: localStorage.getItem('alllength')
+				},
+				methods: {
+					wxpay: function() {
+						if($('#goods').is(':checked') && this.weight != '' && this.note != '') {
+							var that = this
+							$.ajax({
+								type: "post",
+								url: localStorage.getItem('myurl') + "/createWxPay",
+								async: false,
+								dataType: 'json',
+								data: {
+									userId: localStorage.getItem('userid'),
+									orderStart: localStorage.getItem('startRoad'),
+									orderEnd: localStorage.getItem('endRoad'),
+									orderWeight: that.weight,
+									price: that.price,
+									appointmentStatus: that.myappointmentStatus,
+									orderAddition: localStorage.getItem('orderAddition'),
+									orderRemark: that.note,
+									orderAppointment1: that.mytime,
+									driveCarType: localStorage.getItem('carType'),
+									userName: localStorage.getItem('qname'),
+									userPhone: localStorage.getItem('qphone'),
+									deliveryName: localStorage.getItem('zname'),
+									deliveryPhone: localStorage.getItem('zphone'),
+									carType: localStorage.getItem('carType'),
+									orderStatus: '0'
+								},
+								success: function(res) {
+									plus.payment.request(that.channel[1], res, function(result) {
+										plus.nativeUI.alert("支付成功！", function() {
+											window.location.href = '../order/orde_history.html'
+										});
+									}, function(error) {
+										$.ajax({
+											type: "post",
+											url: localStorage.getItem('myurl') + "/apiPayDeleteByorderId",
+											data: {
+												orderId: res.orderId
+											},
+											async: true,
+											success: function(res) {
+												plus.nativeUI.alert("支付失败：" + error.code);
+											}
+										});
+
+									});
+								},
+								error: function(res) {
+									console.log(res)
+								}
+							});
+						} else {
+							alert('请检查订单重量和订单备注是否为空,或者您是否同意了服务协议!!')
+						}
+					},
+					changePrice: function() {
+						$('#myprice').focus()
+					},
+					topay: function() {
+						if($('#goods').is(':checked') && this.weight != '' && this.note != '') {
+							var that = this
+							$.ajax({
+								type: "post",
+								url: localStorage.getItem('myurl') + "/createAliPay",
+								async: false,
+								dataType: 'json',
+								data: {
+									userId: localStorage.getItem('userid'),
+									orderStart: localStorage.getItem('startRoad'),
+									orderEnd: localStorage.getItem('endRoad'),
+									orderWeight: that.weight,
+									price: that.price,
+									appointmentStatus: that.myappointmentStatus,
+									orderAddition: localStorage.getItem('orderAddition'),
+									orderRemark: that.note,
+									orderAppointment1: that.mytime,
+									driveCarType: localStorage.getItem('carType'),
+									userName: localStorage.getItem('qname'),
+									userPhone: localStorage.getItem('qphone'),
+									deliveryName: localStorage.getItem('zname'),
+									deliveryPhone: localStorage.getItem('zphone'),
+									carType: localStorage.getItem('carType'),
+									orderStatus: '0'
+								},
+								success: function(res) {
+									plus.payment.request(that.channel[0], res.data[0], function(result) {
+										plus.nativeUI.alert("支付成功！", function() {
+											window.location.href = '../order/orde_history.html'
+										});
+									}, function(error) {
+										$.ajax({
+											type: "post",
+											url: localStorage.getItem('myurl') + "/apiPayDeleteByorderId",
+											data: {
+												orderId: res.data[1]
+											},
+											async: true,
+											success: function(res) {
+												plus.nativeUI.alert("支付失败：" + error.code);
+											}
+										});
+
+									});
+								},
+								error: function(res) {
+									console.log(res)
+								}
+							});
+						} else {
+							alert('请检查订单重量和订单备注是否为空,或者您是否同意了服务协议!!')
+						}
+					},
+					weightchange: function() {
+						if(this.charge.weight < this.weight) {
+							//							超出重量
+							var car = Math.ceil((this.weight - this.charge.weight) / this.charge.extralWeight)
+							//							超出重量钱数
+							var weightprice = this.returnFloat(car * this.charge.extralWeightPrice)
+							this.price = this.price + Math.ceil(this.alllength) * weightprice
+						} else {
+							this.myajax()
+						}
+					},
+					returnFloat: function(value) {
+						var value = Math.round(parseFloat(value) * 100) / 100;
+						var xsd = value.toString().split(".");
+						if(xsd.length == 1) {
+							value = value.toString() + ".00";
+							return value;
+						}
+						if(xsd.length > 1) {
+							if(xsd[1].length < 2) {
+								value = value.toString() + "0";
+							}
+							return value;
+						}
+					},
+					myajax: function() {
+						var that = this
+						$.ajax({
+							type: "get",
+							url: localStorage.getItem('myurl') + "/queryAllByCarouselId",
+							async: true,
+							dataType: 'json',
+							data: {
+								carouselId: localStorage.getItem('carType')
+							},
+							success: function(res) {
+								that.charge = res.data
+								if(that.charge.kilometer > that.alllength) {
+									//									不超出公里数
+									that.price = that.charge.startPrice
+								} else {
+									//									超出公里数									
+									var car = Math.ceil((that.alllength - that.charge.kilometer))
+									that.price = that.charge.startPrice + car * that.charge.perKilometerPrice
+								}
+								//								如果有返程
+								if(localStorage.getItem('orderAddition') != null) {
+									if(localStorage.getItem('orderAddition').indexOf('b') != '-1') {
+										that.price = Math.floor(that.price * 1.4)
+									}
+								}
+							}
+						});
+					}
+				},
+				mounted: function() {
+					this.myajax()
+					var that = this
+					// 1. 获取支付通道
+					function plusReady() {
+						// 获取支付通道
+						plus.payment.getChannels(function(channels) {
+							that.channel = channels;
+						}, function(e) {
+							alert("获取支付通道失败：" + e.message);
+						});
+					}
+					if(window.plus) {
+						plusReady();
+					} else {
+						document.addEventListener('plusready', plusReady, false);
+					}
+				}
+			})
+		</script>
+	</body>
+
+</html>
