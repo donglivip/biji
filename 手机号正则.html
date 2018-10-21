@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="css/main.css" />
+	</head>
+
+	<body>
+		<div class="wrapper">
+			<div class="header">
+				<div class="header-aside">
+					<img src="img/Arrow_Simple_left Copy@2x.png" />
+				</div>
+				<div class="header-main">豆豆洗注册</div>
+				<div class="header-aside"></div>
+			</div>
+			<img src="img/Path Copy 4.png" class="banner" />
+			<div class="input-box">
+				<input type="number" placeholder="请输入手机号" id="phone"/>
+				<div class="addcode">获取验证码</div>
+			</div>
+			<div class="input-box">
+				<input type="text" placeholder="请输入短信验证码" />
+			</div>
+			<div class="text">
+				注册既代表您已阅读并同意 <strong>《豆豆洗协议》</strong>
+			</div>
+			<div class="button">立即注册</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		$(function(){
+			var set,
+				time=10
+			$('.addcode').click(function(){
+				if(!isPoneAvailable($('#phone').val())){
+					alert('手机格式错误')
+					return false;
+				}
+				
+				if($(this).html()=='获取验证码'){
+					set=setInterval(function(){
+						if(time>1){
+							time--
+							$('.addcode').html(time)
+						}else{
+							$('.addcode').html('获取验证码')
+							clearInterval(set)
+						}
+					},1000)
+				}
+			})
+			function isPoneAvailable(str) {
+	            var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
+	            if (!myreg.test(str)) {
+	                return false;
+	            } else {
+	                return true;
+	            }
+			}
+		})
+	</script>
+</html>
