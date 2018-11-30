@@ -1,0 +1,42 @@
+function plusReady() {
+						plus.runtime.getProperty(plus.runtime.appid, function(inf) {
+							$.ajax({
+								type: "post",
+								url: localStorage.getItem('myurl') + "/backstageCommunity/selectPbAppVersion",
+								dataType: 'json',
+								success: function(res) {
+									if(res.data.pbAvUserCode != inf.version) {
+										plus.nativeUI.showWaiting("下载更新资源包,请勿关闭页面！");
+										plus.downloader.createDownload(localStorage.getItem('myurl') + res.data.pbAvUserUrl, {
+											filename: "_doc/update/"
+										}, function(d, status) {
+											if(status == 200) {
+												plus.runtime.install(d.filename, {}, function() {
+													plus.nativeUI.closeWaiting();
+													plus.nativeUI.alert("应用资源更新完成！点击重启！", function() {
+														plus.runtime.restart();
+													});
+												}, function(e) {
+													plus.nativeUI.closeWaiting();
+													plus.nativeUI.alert("安装更新包失败[" + e.code + "]：" + e.message);
+												});
+											} else {
+												plus.nativeUI.closeWaiting();
+												plus.nativeUI.alert("下载更新包失败！");
+											}
+										}).start();
+									} else {
+										
+									}
+								},
+								error: function(err) {
+									alert(JSON.stringify(err))
+								}
+							});
+						});
+					}
+					if(window.plus) {
+						plusReady();
+					} else {
+						document.addEventListener("plusready", plusReady, false);
+					}

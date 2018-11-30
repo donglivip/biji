@@ -1,0 +1,13 @@
+ <script type="text/javascript" charset="utf-8">
+            mui.init()
+            mui.plusReady(function() {
+//              var self=plus.webview.currentWebview();  
+//              console.log(JSON.stringify(self));
+                var old_back = mui.back;
+                mui.back = function() {
+                    var wobj = plus.webview.getWebviewById("HBuilder"); //注意 HBuilder 是   1.html 的 ID  你如果1.html 有ID   要替换掉HBuilder，  
+                    wobj.reload(true);
+                    old_back();
+                }
+            });
+        </script>

@@ -1,0 +1,4 @@
+this.usCpPhone=this.usCpPhone.replace(/[^\d\.]/g,'')
+this.usCpPhone=this.usCpPhone.replace(/\./g,"")
+
+<input type="tel" placeholder="请输入手机号" @input="inputblur" />
