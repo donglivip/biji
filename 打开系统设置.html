@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title></title>
+		<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			document.addEventListener('plusready', function() {
+				if(mui.os.ios) {
+					plus.runtime.launchApplication({
+						action: 'app-settings:'
+					}, function(e) {}); //WIFI
+				} else {
+					var main = plus.android.runtimeMainActivity(); //获取activity
+					var Intent = plus.android.importClass('android.content.Intent');
+					var Settings = plus.android.importClass('android.provider.Settings');
+					var intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);//可设置表中所有Action字段
+					main.startActivity(intent);
+				}
+			});
+		</script>
+	</head>
+
+	<body>
+
+	</body>
+
+</html>
