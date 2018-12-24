@@ -1,0 +1,85 @@
+			upload: function(target) {
+				var that = this
+				that.files = []
+				that.uploadtarget = target
+				var btnArray = [{
+					title: "照相机"
+				}, {
+					title: "相册"
+				}]; //选择按钮  1 2 3
+				plus.nativeUI.actionSheet({
+					title: "请选择",
+					cancel: "取消",
+					buttons: btnArray
+				}, function(e) {
+					var index = e.index;
+					switch(index) {
+						case 1:
+							that.camera();
+							break;
+						case 2:
+							that.album();
+							break;
+					}
+				});
+			},
+			camera: function() {
+				//				相机
+				var that = this
+				var cmr = plus.camera.getCamera();
+				cmr.captureImage(function(p) {
+					//成功
+					plus.io.resolveLocalFileSystemURL(p, function(entry) {
+						var img_name = entry.name;
+						var img_path = entry.toLocalURL();
+						//						that.upsrc = img_path
+						that.upimg = !that.upimg
+						that.upload_img(img_path)
+					}, function(e) {
+						alert("读取拍照文件错误：" + e.message);
+					});
+
+				}, function(e) {
+					alert("失败：" + e.message);
+				}, {
+					filename: '_doc/camera/',
+					index: 1
+				});
+			},
+			album: function() {
+				//				相册
+				var that = this
+				plus.gallery.pick(function(path) {
+					//					that.upsrc = path
+					that.upimg = !that.upimg
+					that.upload_img(path);
+				}, function(e) {
+					alert("取消选择图片");
+				}, {
+					filter: "image"
+				});
+			},
+			upload_img: function(p) {
+				var thats = this
+				var img = new Image();
+				img.src = p; // 传过来的图片路径在这里用。
+				img.onload = function() {
+					var that = this;
+					//生成比例 
+					var w = that.width,
+						h = that.height,
+						scale = w / h;
+					w = 480 || w; //480  你想压缩到多大，改这里
+					h = w / scale;
+
+					//生成canvas
+					var canvas = document.createElement('canvas');
+					var ctx = canvas.getContext('2d');
+					$(canvas).attr({
+						width: w,
+						height: h
+					});
+					ctx.drawImage(that, 0, 0, w, h);
+					thats.upsrc = canvas.toDataURL('image/jpeg', 1 || 0.8)
+				}
+			}

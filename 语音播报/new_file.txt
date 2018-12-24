@@ -1,0 +1,4 @@
+<audio src="../images/pic/music.mp3" preload="auto" id="bgMusic"></audio>
+var audio = document.getElementById("bgMusic");
+									//播放(继续播放)
+									audio.play();
