@@ -1,0 +1,47 @@
+1.methods和computed的区别
+	methods依赖于函数
+	computed依赖于缓存
+	当发生复杂的数据计算时用computed
+	
+
+打包优化
+上面说了代码方面的规范和优化，下面说下重点的打包优化，前段时间打包的 vender bundle 足足 1.4M，app bundle 也有 270K，app bundle 可以通过组件懒加载解决，vender 包该怎么解决？
+
+有人会质疑是不是没压缩或依赖包没去重，其实都做了就是看到的 1.4M。
+
+解决方法很简单，打包 vender 时不打包 vue、vuex、vue-router、axios 等，换用国内的 bootcdn 直接引入到根目录的 index.html 中。
+
+例如：
+
+<script src="//cdn.bootcss.com/vue/2.2.5/vue.min.js"></script>
+<script src="//cdn.bootcss.com/vue-router/2.3.0/vue-router.min.js"></script>
+<script src="//cdn.bootcss.com/vuex/2.2.1/vuex.min.js"></script>
+<script src="//cdn.bootcss.com/axios/0.15.3/axios.min.js"></script>
+在 webpack 里有个 externals，可以忽略不需要打包的库
+
+externals: {
+  'vue': 'Vue',
+  'vue-router': 'VueRouter',
+  'vuex': 'Vuex',
+  'axios': 'axios'
+}
+
+//路由懒加载
+ {
+      path: '/changepwd',
+      name: 'changepwd',
+      component:resolve => require(['@/components/changepwd'], resolve),
+      meta: { keepAlive: false}  
+   },
+//页面不刷新
+<keep-alive>
+		<router-view v-if="$route.meta.keepAlive" class="child-view"></router-view>
+	</keep-alive>
+	<router-view v-if="!$route.meta.keepAlive" class="child-view"></router-view>  
+			
+	{
+      path: '/wwang',
+      name: 'wwang',
+      component:resolve => require(['@/components/wadmin/wwang'], resolve),
+      meta: { keepAlive: true}  
+    }
