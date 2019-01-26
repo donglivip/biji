@@ -1,0 +1,7 @@
+document.addEventListener("xiadanyemian", function() {
+					
+				})
+				
+
+var xiadanyemian=plus.webview.getWebviewById("xiadanyemian");
+							mui.fire(xiadanyemian,'xiadanyemian',{});

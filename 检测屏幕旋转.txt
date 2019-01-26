@@ -1,0 +1,8 @@
+function orientate() {
+  if (global.orientation === 90 || global.orientation === -90) {
+    alert('cross')
+  } else {
+    alert('vertical')
+  }
+}
+global.addEventListener('onorientationchange' in global ? 'orientationchange' : 'resize', orientate, false)

@@ -1,10 +1,12 @@
-	1.安装nodejs
-	2.安装vue-cli
-	3.初始化项目vue init webpack 项目名称
-	4.cd 项目名称
-	5.安装依赖npm install
-	6.开始运行npm run dev
-	使用sass
+	1.基础使用	
+		安装nodejs
+		安装vue-cli
+		初始化项目vue init webpack 项目名称
+		cd 项目名称
+		安装依赖npm install
+		开始运行npm run dev
+	》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》
+	2.使用sass
 		npm install node-sass --save-dev  
 		npm install sass-loader --save-dev 
 		{  
@@ -12,26 +14,28 @@
 	        loaders: ["style", "css", "sass"]  
 	      },  
 		<style lang="scss" scoped="" type="text/css"></style>  
-	使用axios
+	》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》	
+	3.使用axios
 	    npm install axios -s
 	    在main.js引入
 	    import axios form 'axios'
-	  改写原型链
+	     改写原型链
 	  	Vue.prototype.$ajax = axios
-	 使用
+	     使用
 	 	this.$ajax({
-			      method: 'get',
-			      url: that.service+'/queryLoginByCuserPhone',
-			      data: {
-			        cuserPhone: that.phone,
-			        cuserPassword:that.pwd
-			      }
-			   	}).then((res) => {
-					console.log(res)
-				}).catch((err) => {
-					console.log(err);
-				})	
-	使用swiper
+			method: 'get',
+			url: that.service+'/queryLoginByCuserPhone',
+			data: {
+			    cuserPhone: that.phone,
+			    cuserPassword:that.pwd
+			}
+			}).then((res) => {
+				console.log(res)
+			}).catch((err) => {
+				console.log(err);
+			})	
+	》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》				
+	4.使用swiper
 		npm install vue-awesome-swiper --save-dev
 		main.js
 			import VueAwesomeSwiper from 'vue-awesome-swiper'
@@ -86,12 +90,13 @@
 			},
 			禁止滑动
 			class='swiper-no-swiping'
-	使用vuex
+	》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》				
+	5.使用vuex
 		 	npm install vuex -s
 		main.js
 			import Vuex from 'vuex'
 			import store from './vuex/store'
-			新建store内容
+		store.js
 			import Vue from 'vue'
 			import Vuex from 'vuex'
 			
@@ -105,34 +110,6 @@
 			})
 			
 			export default store
-	-------------------------------------------------		
-			
-			
-		按需引入组件
-			MyHeader:resolve => require(['./header'],resolve),
-			MyFooter:resolve => require(['./footer'],resolve)
-		按需路由
-			routes: [{
-				path: '/home',
-				name: 'home',
-				component: resolve => require(['@/components/home/home'], resolve)
-			}
-			
-------------------------------------			
-			
-			
-		动画
-			.fade-enter-active, .fade-leave-active {
-			transform: translateX(0);
-			  transition: all .6s;
-			}
-			.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-			  transform: translateX(-100%);
-			}
-		js控制路由
-			this.$router.push({
-					name: '' + target + ''
-				});
 		获取vuex值
 			 computed: {
 			      back () {	
@@ -142,17 +119,47 @@
 			        return this.$store.state.head
 			      }
 			    }
-	使用高德地图
+		
+	》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》				
+	6.按需引入组件
+			MyHeader:resolve => require(['./header'],resolve),
+			MyFooter:resolve => require(['./footer'],resolve)
+	》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》				
+	7.按需路由
+			routes: [{
+				path: '/home',
+				name: 'home',
+				component: resolve => require(['@/components/home/home'], resolve)
+			}
+	》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》			
+	8.动画
+		.fade-enter-active, .fade-leave-active {
+		transform: translateX(0);
+			 transition: all .6s;
+		}
+		.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+			transform: translateX(-100%);
+		}
+	》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》			
+	9.js控制路由
+		this.$router.push({
+			name: '' + target + ''
+		});
+	》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》				
+	10.使用高德地图
 			在index.html
 					<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.4&key=3adc59b361b877d943cda0ce50b9b4da"></script>
     				<script src="http://webapi.amap.com/ui/1.0/main.js" type="text/javascript" charset="utf-8"></script>
+    		
     		webpack.base.conf.js
     				externals: {
 				   	 'AMap': 'AMap'
 					}
 			vue	
 				import AMap from 'AMap'
-	相机和相册
+				
+	》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》			
+	11.相机和相册
 		data{
 			server:'http://39.107.70.18/Transportation/uploadDriverImage',
 			files:[],
@@ -268,32 +275,124 @@
 				return Math.floor(Math.random() * 100000000 + 10000000).toString();
 			}
 		}
-是用地址选择插件
-	npm install v-distpicker --save
-	import VDistpicker from 'v-distpicker'
+		--------------------base64上传图片------------------
+		upload: function(target) {
+				var that = this
+				that.files = []
+				that.uploadtarget = target
+				var btnArray = [{
+					title: "照相机"
+				}, {
+					title: "相册"
+				}]; //选择按钮  1 2 3
+				plus.nativeUI.actionSheet({
+					title: "请选择",
+					cancel: "取消",
+					buttons: btnArray
+				}, function(e) {
+					var index = e.index;
+					switch(index) {
+						case 1:
+							that.camera();
+							break;
+						case 2:
+							that.album();
+							break;
+					}
+				});
+			},
+			camera: function() {
+				var that = this
+				var cmr = plus.camera.getCamera();
+				cmr.captureImage(function(p) {
+					//成功
+					plus.io.resolveLocalFileSystemURL(p, function(entry) {
+						var img_name = entry.name;
+						var img_path = entry.toLocalURL();
+						document.getElementById(that.uploadtarget).setAttribute('src', img_path)
+						that.upload_img(img_path);
+					}, function(e) {
+						alert("读取拍照文件错误：" + e.message);
+					});
 
-	export default {
-	  components: { VDistpicker }
-	}
-	
+				}, function(e) {
+					alert("失败：" + e.message);
+				}, {
+					filename: '_doc/camera/',
+					index: 1
+				});
+			},
+			album: function() {
+				var that = this
+				plus.gallery.pick(function(path) {
+					document.getElementById(that.uploadtarget).setAttribute('src', path)
+					that.upload_img(path);
+				}, function(e) {
+					alert("取消选择图片");
+				}, {
+					filter: "image"
+				});
+			},
+			upload_img: function(p) {
+				var thats = this
+				var img = new Image();
+				img.src = p; // 传过来的图片路径在这里用。
+				img.onload = function() {
+					var that = this;
+					//生成比例 
+					var w = that.width,
+						h = that.height,
+						scale = w / h;
+					w = 280 || w; //480  你想压缩到多大，改这里
+					h = w / scale;
+					//生成canvas
+					var canvas = document.createElement('canvas');
+					var ctx = canvas.getContext('2d');
+					$(canvas).attr({
+						width: w,
+						height: h
+					});
+					ctx.drawImage(that, 0, 0, w, h);
+					$.ajax({
+						type: "post",
+						url: thats.myurl + '/imageRiderImageUsTraderStores',
+						dataType: 'json',
+						data: {
+							imgStr: canvas.toDataURL('image/jpeg', 1 || 0.8)
+						},
+						success: function(res) {
+							$('#' + thats.uploadtarget + '').prev().val(res.data)
+						}
+					});
+				}
+			}
+		》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》
+	12.使用地址选择插件
+			npm install v-distpicker --save
+			import VDistpicker from 'v-distpicker'
 		
-	Default Value:
-	
-	<v-distpicker province="广东省" city="广州市" area="海珠区"></v-distpicker>
-	Mobile:
-	
-	<v-distpicker type="mobile"></v-distpicker>
-	
-	<v-distpicker type="mobile" @selected="onSelected"></v-distpicker>
-	
+			export default {
+			  components: { VDistpicker }
+			}
+			
+				
+			Default Value:
+			
+			<v-distpicker province="广东省" city="广州市" area="海珠区"></v-distpicker>
+			Mobile:
+			
+			<v-distpicker type="mobile"></v-distpicker>
+			
+			<v-distpicker type="mobile" @selected="onSelected"></v-distpicker>
+			
 
 		  	onSelected:function(data){
 				this.$store.state.citydata = data.province.value + data.city.value + data.area.value
 				console.log(this.$store.state.citydata)
 			},
-			
-子组件调用父组件方法
-Parent.vue
+	》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》		
+	13.子组件调用父组件方法
+		Parent.vue
 		 <child @citychange="citychange"></child>
 		 
 		  methods: {
@@ -302,11 +401,11 @@ Parent.vue
 	            }
 	        },
 		 
-Child.vue
-		this.$emit('citychange');
+		Child.vue
+			this.$emit('citychange');
 		
-
-使用echart图表	
+	》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》	
+	14.使用echart图表	
 		cnpm install echarts -S
 		
 		import echarts from 'echarts'
@@ -315,45 +414,44 @@ Child.vue
 		
 		let myChart = echarts.init(document.getElementById('myChart'))
 		myChart.setOption(option)
+	》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》		
+	15.日期选择插件
+		npm install vue-mobile-calendar
+		main.js	
+			import Vue from 'vue'
+			import Calendar from 'vue-mobile-calendar'
 		
-日期选择插件
-	npm install vue-mobile-calendar
-
-main.js	
-	import Vue from 'vue'
-	import Calendar from 'vue-mobile-calendar'
-
-	Vue.use(Calendar)
+			Vue.use(Calendar)
+			
+			<calendar
+		    v-model="calendarShow"
+		    :defaultDate="defaultDate"
+		    @change="handelChange">
+			</calendar>
+			
+			handelChange：function(date,formatDate){
+			
+			}
 	
-	<calendar
-    v-model="calendarShow"
-    :defaultDate="defaultDate"
-    @change="handelChange">
-	</calendar>
-	
-	handelChange：function(date,formatDate){
-	
-	}
-	
-
-使用jquery
-	npm install jquery --save-dev 
-	
-	build文件夹下的webpack.base.conf.js
-	
-	var webpack=require('webpack')
-	
-	在module.exports中加入
-	plugins: [ 
-           new webpack.ProvidePlugin({ 
-                 $:"jquery", 
-                 jQuery:"jquery", 
-                "windows.jQuery":"jquery"
-        }) 
-      ]
+	》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》	
+	16.使用jquery
+		npm install jquery --save-dev 
+		
+		build文件夹下的webpack.base.conf.js
+		
+		var webpack=require('webpack')
+		
+		在module.exports中加入
+		plugins: [ 
+	           new webpack.ProvidePlugin({ 
+	                 $:"jquery", 
+	                 jQuery:"jquery", 
+	                "windows.jQuery":"jquery"
+	        }) 
+	      ]
       
-
-使用foemData
+	》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》	
+	17.formData
 		<form @submit.prevent="submit($event)">
 		
 		submit: function(event) {
@@ -374,33 +472,58 @@ main.js
 					}
 				});
 		}
-		
-:src失效
-	picPath: require('../../static/creame.png'),
+	》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》	
+	19.:src失效
+		picPath: require('../../static/creame.png'),
 	
-
-keep-alive
-	<keep-alive>
-		<router-view v-if="$route.meta.keepAlive" class="child-view"></router-view>
-	</keep-alive>
-	<router-view v-if="!$route.meta.keepAlive" class="child-view"></router-view>  
-			
-	{
-      path: '/wwang',
-      name: 'wwang',
-      component:resolve => require(['@/components/wadmin/wwang'], resolve),
-      meta: { keepAlive: true}  
-    }
+	》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》	
+	20.keep-alive
+		<keep-alive>
+			<router-view v-if="$route.meta.keepAlive" class="child-view"></router-view>
+		</keep-alive>
+		<router-view v-if="!$route.meta.keepAlive" class="child-view"></router-view>  
+				
+		{
+	      path: '/wwang',
+	      name: 'wwang',
+	      component:resolve => require(['@/components/wadmin/wwang'], resolve),
+	      meta: { keepAlive: true}  
+	    }
     
-
-背景图片
-	build/utils/
-	 if (options.extract) {
-      return ExtractTextPlugin.extract({
-        use: loaders,
-        fallback: 'vue-style-loader',
-        publicPath:'../../',
-      })
-    } else {
-      return ['vue-style-loader'].concat(loaders)
-    }
+	》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》
+	21.背景图片
+		build/utils/
+		 if (options.extract) {
+	      return ExtractTextPlugin.extract({
+	        use: loaders,
+	        fallback: 'vue-style-loader',
+	        publicPath:'../../',
+	      })
+	    } else {
+	      return ['vue-style-loader'].concat(loaders)
+	    }
+    
+	》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》
+	22.图片懒加载
+		vue-lazyload
+		1. 安装插件：npm install vue-lazyload --save-dev
+		2. main.js引入插件：import VueLazyLoad from 'vue-lazyload' Vue.use(VueLazyLoad,{ error:'./static/error.png', loading:'./static/loading.png'})
+		3. vue文件中将需要懒加载的图片绑定 v-bind:src 修改为 v-lazy<img class="item-pic" v-lazy="newItem.picUrl"/>
+	
+	》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》
+	23.不生成map文件
+		confgi/index.js -> productionSourceMap: false,
+	
+	》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》
+	24.css只对当前组件生效
+	
+		<style lang="scss" scoped>
+		
+		</style>
+	》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》
+	25.移动端click延迟
+		npm install fastclick -S
+		
+		import FastClick from 'fastclick'
+	
+		FastClick.attach(document.body);
