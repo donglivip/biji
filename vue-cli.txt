@@ -18,7 +18,7 @@
 	3.使用axios
 	    npm install axios -s
 	    在main.js引入
-	    import axios form 'axios'
+	    import axios from 'axios'
 	     改写原型链
 	  	Vue.prototype.$ajax = axios
 	     使用
@@ -416,22 +416,37 @@
 		myChart.setOption(option)
 	》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》		
 	15.日期选择插件
-		npm install vue-mobile-calendar
+		npm install vue-date-time-m
 		main.js	
-			import Vue from 'vue'
-			import Calendar from 'vue-mobile-calendar'
-		
-			Vue.use(Calendar)
+			import dateTime from 'vue-date-time-m';
+			Vue.component('data-time', dateTime);
 			
-			<calendar
-		    v-model="calendarShow"
-		    :defaultDate="defaultDate"
-		    @change="handelChange">
-			</calendar>
+			<div class="date-time-input" @click="show">{{ data }}</div>
+            <date-time ref="dateTime"
+                         type="date" //datetime
+                         @confirm="select"></date-time>
 			
-			handelChange：function(date,formatDate){
-			
-			}
+			import DateTime from 'vue-date-time-m'
+	          export default {
+	            data(){
+	              return {
+	                data: ''
+	              }
+	            },
+	            components: {
+	              DateTime
+	            },
+	            methods: {
+	              //  展示日期组件
+	              show () {
+	                this.$refs.dateTime.show()
+	              },
+	              // 日期组件回调
+	              select (val) {
+	                this.data = val
+	              }
+	            }
+	          }
 	
 	》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》	
 	16.使用jquery
@@ -527,3 +542,6 @@
 		import FastClick from 'fastclick'
 	
 		FastClick.attach(document.body);
+		
+	26.跳转不返回上一页
+		replace

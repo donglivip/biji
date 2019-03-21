@@ -1,0 +1,23 @@
+/* add border */
+.nav li {
+  border-right: 1px solid #666;
+}
+
+//* remove border */
+.nav li:last-child {
+  border-right: none;
+}
+
+不过不要这么做，使用 :not() 伪类来达到同样的效果：
+
+.nav li:not(:last-child) {
+  border-right: 1px solid #666;
+}
+
+<!--[if lt IE 9]>
+//解决ie9以下浏览器对html5新增标签的不识别，并导致CSS不起作用的问题
+　　<script src="//cdn.bootcss.com/respond.js/1.4.2/respond.js"></script> 
+
+//让不支持css3 Media Query的浏览器包括IE6-IE8等其他浏览器支持查询
+　　<script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<![endif]—>
