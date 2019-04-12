@@ -210,60 +210,6 @@
 						} else {
 							alert('请检查订单重量和订单备注是否为空,或者您是否同意了服务协议!!')
 						}
-					},
-					weightchange: function() {
-						if(this.charge.weight < this.weight) {
-							//							超出重量
-							var car = Math.ceil((this.weight - this.charge.weight) / this.charge.extralWeight)
-							//							超出重量钱数
-							var weightprice = this.returnFloat(car * this.charge.extralWeightPrice)
-							this.price = this.price + Math.ceil(this.alllength) * weightprice
-						} else {
-							this.myajax()
-						}
-					},
-					returnFloat: function(value) {
-						var value = Math.round(parseFloat(value) * 100) / 100;
-						var xsd = value.toString().split(".");
-						if(xsd.length == 1) {
-							value = value.toString() + ".00";
-							return value;
-						}
-						if(xsd.length > 1) {
-							if(xsd[1].length < 2) {
-								value = value.toString() + "0";
-							}
-							return value;
-						}
-					},
-					myajax: function() {
-						var that = this
-						$.ajax({
-							type: "get",
-							url: localStorage.getItem('myurl') + "/queryAllByCarouselId",
-							async: true,
-							dataType: 'json',
-							data: {
-								carouselId: localStorage.getItem('carType')
-							},
-							success: function(res) {
-								that.charge = res.data
-								if(that.charge.kilometer > that.alllength) {
-									//									不超出公里数
-									that.price = that.charge.startPrice
-								} else {
-									//									超出公里数									
-									var car = Math.ceil((that.alllength - that.charge.kilometer))
-									that.price = that.charge.startPrice + car * that.charge.perKilometerPrice
-								}
-								//								如果有返程
-								if(localStorage.getItem('orderAddition') != null) {
-									if(localStorage.getItem('orderAddition').indexOf('b') != '-1') {
-										that.price = Math.floor(that.price * 1.4)
-									}
-								}
-							}
-						});
 					}
 				},
 				mounted: function() {
