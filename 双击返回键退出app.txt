@@ -1,0 +1,13 @@
+plus.key.addEventListener("backbutton", function() {
+					if(first==null) {
+						first = new Date().getTime();
+						that.$router.back()
+						setTimeout(function() {
+							first = null;
+						}, 1000);
+					} else {
+						if(new Date().getTime() - first < 1000) {
+							plus.runtime.quit();
+						}
+					}
+				})

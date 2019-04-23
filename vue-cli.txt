@@ -96,6 +96,12 @@
 		main.js
 			import Vuex from 'vuex'
 			import store from './vuex/store'
+			new Vue({
+			  el: '#app',
+			  router,
+			  store,
+			  render: h => h(App)
+			})
 		store.js
 			import Vue from 'vue'
 			import Vuex from 'vuex'
