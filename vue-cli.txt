@@ -9,6 +9,7 @@
 	2.使用sass
 		npm install node-sass --save-dev  
 		npm install sass-loader --save-dev 
+		在webpack.base.conf.js中module: { rules: [
 		{  
 	        test: /\.scss$/,  
 	        loaders: ["style", "css", "sass"]  
