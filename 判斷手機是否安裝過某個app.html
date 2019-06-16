@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title></title>
+		<script type="text/javascript">
+			document.addEventListener('plusready', function() {
+				function testApp(url) {
+					$.ajax({
+						type: "post",
+						url: myurl + "/user/selectSmUserWalletDetail",
+						async: true,
+						dataType: 'json',
+						data: {
+							smUserId: localStorage.getItem('id')
+						},
+						success: function(res) {
+							if(res.ShowWeb == 1) {
+								try {
+									var packageName = 'io.dcloud.H59EAC2CB'; //百度地图的包名  
+									var main = plus.android.runtimeMainActivity();
+									var packageManager = main.getPackageManager();
+									var PackageManager = plus.android.importClass(packageManager);
+									var packageInfo = packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
+									if(packageInfo) {
+										//已安装  
+										plus.runtime.launchApplication({
+											pname: packageName
+										}, function(e) {
+											alert("Open system default browser failed: " + e.message);
+										});
+									} else {
+										//未安装  
+										alert('未安装')
+									}
+								} catch(e) {
+									//未安装  
+									alert('未安装')
+								}
+							} else {
+								alert(res.msg)
+							}
+						},
+						error: function(err) {
+							alert("网络连接失败，请稍后重试")
+						}
+					});
+
+				}
+				testApp()
+			});
+		</script>
+	</head>
+
+	<body>
+
+	</body>
+	<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+
+</html>

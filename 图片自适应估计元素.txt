@@ -1,7 +1,0 @@
-.myimg-box{height: 4rem;width: 100%;background: rgba(0,0,0,.7);overflow: hidden;text-align: center;padding: .05rem;}
-.myimg-box:before {
-  content: "";display: inline-block;height: 100%;vertical-align: middle;width: 0;
-}
-.myimg-box img {
-  max-width: 100%; max-height: 4rem;vertical-align: middle;
-}

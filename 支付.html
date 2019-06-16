@@ -99,63 +99,6 @@
 					alllength: localStorage.getItem('alllength')
 				},
 				methods: {
-					wxpay: function() {
-						if($('#goods').is(':checked') && this.weight != '' && this.note != '') {
-							var that = this
-							$.ajax({
-								type: "post",
-								url: localStorage.getItem('myurl') + "/createWxPay",
-								async: false,
-								dataType: 'json',
-								data: {
-									userId: localStorage.getItem('userid'),
-									orderStart: localStorage.getItem('startRoad'),
-									orderEnd: localStorage.getItem('endRoad'),
-									orderWeight: that.weight,
-									price: that.price,
-									appointmentStatus: that.myappointmentStatus,
-									orderAddition: localStorage.getItem('orderAddition'),
-									orderRemark: that.note,
-									orderAppointment1: that.mytime,
-									driveCarType: localStorage.getItem('carType'),
-									userName: localStorage.getItem('qname'),
-									userPhone: localStorage.getItem('qphone'),
-									deliveryName: localStorage.getItem('zname'),
-									deliveryPhone: localStorage.getItem('zphone'),
-									carType: localStorage.getItem('carType'),
-									orderStatus: '0'
-								},
-								success: function(res) {
-									plus.payment.request(that.channel[1], res, function(result) {
-										plus.nativeUI.alert("支付成功！", function() {
-											window.location.href = '../order/orde_history.html'
-										});
-									}, function(error) {
-										$.ajax({
-											type: "post",
-											url: localStorage.getItem('myurl') + "/apiPayDeleteByorderId",
-											data: {
-												orderId: res.orderId
-											},
-											async: true,
-											success: function(res) {
-												plus.nativeUI.alert("支付失败：" + error.code);
-											}
-										});
-
-									});
-								},
-								error: function(res) {
-									console.log(res)
-								}
-							});
-						} else {
-							alert('请检查订单重量和订单备注是否为空,或者您是否同意了服务协议!!')
-						}
-					},
-					changePrice: function() {
-						$('#myprice').focus()
-					},
 					topay: function() {
 						if($('#goods').is(':checked') && this.weight != '' && this.note != '') {
 							var that = this
@@ -167,40 +110,24 @@
 								data: {
 									userId: localStorage.getItem('userid'),
 									orderStart: localStorage.getItem('startRoad'),
-									orderEnd: localStorage.getItem('endRoad'),
-									orderWeight: that.weight,
-									price: that.price,
-									appointmentStatus: that.myappointmentStatus,
-									orderAddition: localStorage.getItem('orderAddition'),
-									orderRemark: that.note,
-									orderAppointment1: that.mytime,
-									driveCarType: localStorage.getItem('carType'),
-									userName: localStorage.getItem('qname'),
-									userPhone: localStorage.getItem('qphone'),
-									deliveryName: localStorage.getItem('zname'),
-									deliveryPhone: localStorage.getItem('zphone'),
-									carType: localStorage.getItem('carType'),
-									orderStatus: '0'
+									orderEnd: localStorage.getItem('endRoad')
 								},
 								success: function(res) {
-									console.log(res)
+									// 支付宝
 									plus.payment.request(that.channel[0], res.data[0], function(result) {
 										plus.nativeUI.alert("支付成功！", function() {
 											window.location.href = '../order/orde_history.html'
 										});
 									}, function(error) {
-										$.ajax({
-											type: "post",
-											url: localStorage.getItem('myurl') + "/apiPayDeleteByorderId",
-											data: {
-												orderId: res.data[1]
-											},
-											async: true,
-											success: function(res) {
-												plus.nativeUI.alert("支付失败：" + error.code);
-											}
+										
+									});
+									// 微信
+									plus.payment.request(that.channel[0], res.data[0], function(result) {
+										plus.nativeUI.alert("支付成功！", function() {
+											window.location.href = '../order/orde_history.html'
 										});
-
+									}, function(error) {
+										
 									});
 								},
 								error: function(res) {

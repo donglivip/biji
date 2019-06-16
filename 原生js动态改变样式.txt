@@ -1,3 +1,0 @@
-obj.style.color="red"
-obj.style.cssText="color:red"
-obj.setAttribute("class","a")
