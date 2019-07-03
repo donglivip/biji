@@ -1,4 +1,4 @@
-document.addEventListener("xiadanyemian", function() {
+window.addEventListener("xiadanyemian", function() {
 					
 				})
 				

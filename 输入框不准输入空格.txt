@@ -1,3 +1,0 @@
-$('input').on('keypress',function () {
-　　if(event.keyCode == 32)event.returnValue = false;
-})

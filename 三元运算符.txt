@@ -1,2 +1,0 @@
-条件?true:false
-条件为true走true为false走false

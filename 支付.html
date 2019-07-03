@@ -115,17 +115,13 @@
 								success: function(res) {
 									// 支付宝
 									plus.payment.request(that.channel[0], res.data[0], function(result) {
-										plus.nativeUI.alert("支付成功！", function() {
-											window.location.href = '../order/orde_history.html'
-										});
+										
 									}, function(error) {
 										
 									});
 									// 微信
 									plus.payment.request(that.channel[0], res.data[0], function(result) {
-										plus.nativeUI.alert("支付成功！", function() {
-											window.location.href = '../order/orde_history.html'
-										});
+										
 									}, function(error) {
 										
 									});
