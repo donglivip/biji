@@ -2,15 +2,6 @@ myscroll: function() {
 						var that = this
 						if(Math.abs($('.main-inner').offset().top) + $('.main').height() + 200 >= $('.main-inner').height()) {
 							if(that.pages>that.pageNum){
-								function plusReady() {
-									// 弹出系统等待对话框
-									var w = plus.nativeUI.showWaiting("等待中...");
-								}
-								if(window.plus) {
-									plusReady();
-								} else {
-									document.addEventListener("plusready", plusReady, false);
-								}
 								that.pagenum++
 								if(!that.state){that.myajax()}
 								that.state=true

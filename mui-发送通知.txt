@@ -5,3 +5,6 @@ window.addEventListener("xiadanyemian", function() {
 
 var xiadanyemian=plus.webview.getWebviewById("xiadanyemian");
 							mui.fire(xiadanyemian,'xiadanyemian',{});
+							
+							var shou=plus.webview.getLaunchWebview();
+							mui.fire(shou,'chushihua',{});

@@ -1,7 +1,0 @@
-{
-"version": 3,
-"mappings": "AAcG,CAAC,CAbI,SAAS,CAcE,EAAE,CACd,MAAM,CAAE,IAAM,CAbb,gBAAiB,CACb,SAAS,CAAE,EAAc,CAG7B,gBAAiB,CACb,SAAS,CAAE,EAAc",
-"sources": ["flexible.scss"],
-"names": [],
-"file": "flexible.css"
-}
