@@ -2,9 +2,10 @@ myscroll: function() {
 						var that = this
 						if(Math.abs($('.main-inner').offset().top) + $('.main').height() + 200 >= $('.main-inner').height()) {
 							if(that.pages>that.pageNum){
-								that.pagenum++
-								if(!that.state){that.myajax()}
-								that.state=true
+								if (!that.state) {
+									that.pageNum++
+									that.myajax()
+								}
 							}
 							
 						}
