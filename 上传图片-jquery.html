@@ -1,4 +1,4 @@
-			upload: function(target) {
+			function upload(target) {
 				var that = this
 				var btnArray = [{
 					title: "照相机"
@@ -13,15 +13,15 @@
 					var index = e.index;
 					switch(index) {
 						case 1:
-							that.camera();
+							camera();
 							break;
 						case 2:
-							that.album();
+							album();
 							break;
 					}
 				});
 			},
-			camera: function() {
+			function camera() {
 				//				相机
 				var that = this
 				var cmr = plus.camera.getCamera();
@@ -30,9 +30,7 @@
 					plus.io.resolveLocalFileSystemURL(p, function(entry) {
 						var img_name = entry.name;
 						var img_path = entry.toLocalURL();
-						//						that.upsrc = img_path
-						that.upimg = !that.upimg
-						that.upload_img(img_path)
+						upload_img(img_path)
 					}, function(e) {
 						alert("读取拍照文件错误：" + e.message);
 					});
@@ -44,20 +42,18 @@
 					index: 1
 				});
 			},
-			album: function() {
+			function album() {
 				//				相册
 				var that = this
 				plus.gallery.pick(function(path) {
-					//					that.upsrc = path
-					that.upimg = !that.upimg
-					that.upload_img(path);
+					upload_img(path);
 				}, function(e) {
 					alert("取消选择图片");
 				}, {
 					filter: "image"
 				});
 			},
-			upload_img: function(p) {
+			function upload_img(p) {
 				var thats = this
 				var img = new Image();
 				img.src = p; // 传过来的图片路径在这里用。
@@ -78,6 +74,6 @@
 						height: h
 					});
 					ctx.drawImage(that, 0, 0, w, h);
-					thats.upsrc = canvas.toDataURL('image/jpeg', 1 || 0.8)
+					canvas.toDataURL('image/jpeg', 1 || 0.8)//base图片码
 				}
 			}
