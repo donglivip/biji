@@ -38,24 +38,24 @@
 		<style lang="scss" scoped="" type="text/css"></style>  
 	》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》	
 	3.使用axios
-	    npm install axios -s
+	    npm install axios qs -s
 	    在main.js引入
 	    import axios from 'axios'
-	     改写原型链
-	  	Vue.prototype.$ajax = axios
-	     使用
-	 	this.$ajax({
-			method: 'get',
-			url: that.service+'/queryLoginByCuserPhone',
-			data: {
-			    cuserPhone: that.phone,
-			    cuserPassword:that.pwd
-			}
-			}).then((res) => {
-				console.log(res)
-			}).catch((err) => {
-				console.log(err);
-			})	
+		import qs from 'qs'
+		
+	  	Vue.prototype.$Axios = axios
+		Vue.prototype.$qs = qs
+	    使用
+	 	this.$Axios.post(
+	 	  that.myurl + "/login",
+	 	  that.$qs.stringify({
+	 	    phone: that.phone,
+	 	    type:1
+	 	  })
+	 	)
+	 	.then(function(res){
+	 	  console.log(res.data.data)
+	 	})
 	》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》				
 	4.使用swiper
 		npm install vue-awesome-swiper --save-dev
