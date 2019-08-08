@@ -541,7 +541,7 @@
 	      return ExtractTextPlugin.extract({
 	        use: loaders,
 	        fallback: 'vue-style-loader',
-	        publicPath:'../../',
+	        publicPath:'../../',   加这个
 	      })
 	    } else {
 	      return ['vue-style-loader'].concat(loaders)
