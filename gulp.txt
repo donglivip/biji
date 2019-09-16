@@ -1,11 +1,13 @@
-﻿gei pu
+gei pu
 1.安装nodejs；
 2.安装cnpm（可选）
 3.全局安装gulp
-4.cnpm init
-5.本地安装gulp插件（以翻译less为例子cnpm install gulp-less --save-dev）
-6.本地安装gulp
-7.常用插件
+4.gulp -v 查看全局gul版本
+5.本地安装同版本gulp
+6.cnpm init
+7.本地安装gulp插件（以翻译less为例子cnpm install gulp-less --save-dev）
+8.本地安装gulp
+9.常用插件
 合并文件
 gulp-concat
 压缩js文件
